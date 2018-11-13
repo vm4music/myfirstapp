@@ -24,8 +24,8 @@ app.use('/views', express.static(__dirname + '/views'));
 var con = mysql.createPool({
 connectionLimit : 10,
   host: "localhost",
-  user: "root",
-  password: "root",
+  user: "demouser",
+  password: "demopassword",
   database: "musicapp"
 });
 
@@ -144,8 +144,8 @@ app.post('/add', function(req, res, next){
 		}
 	console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
       var oldpath = files.filetoupload.path;
-    //  var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
-	var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
+     var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
+	//var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
       fs.rename(oldpath, newpath, function (err) {
         if (err) throw err;
         //res.write('File uploaded and moved!');
