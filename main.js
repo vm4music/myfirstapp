@@ -19,20 +19,20 @@ app.use(express.static('public'));
 
 //Serves all the request which includes /images in the url from Images folder
 app.use('/mymusicapp', express.static(__dirname + '/mymusicapp'));
-
+app.use('/views', express.static(__dirname + '/views'));
 
 var con = mysql.createPool({
 connectionLimit : 10,
   host: "localhost",
-  user: "demouser",
-  password: "demopassword",
+  user: "root",
+  password: "root",
   database: "musicapp"
 });
 
 var port = 1337;
 
 app.set('port', process.env.port || port); // set express to use this port
-app.set('views', __dirname + ''); // set express to look in this folder to render our view
+app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
@@ -61,7 +61,7 @@ http.createServer(function (req, res) {
 app.get('/', function(req, res, next) {
 	con.getConnection(function(err) {
   if (err) throw err;
-  con.query("SELECT * FROM songs", function (err, result, fields) {
+  con.query("SELECT * FROM songs ORDER BY song_id LIMIT 0,10", function (err, result, fields) {
     if (err) throw err;
 	re = result;
     //console.log(result[0].src);
@@ -76,7 +76,27 @@ app.get('/', function(req, res, next) {
 
 });
 
-app.get('/add', function(req, res, next){    
+app.get('/(:id)', function(req, res, next) {
+console.log(req.params.id);
+	con.getConnection(function(err) {
+  if (err) throw err;
+  console.log(req.params.id);
+  con.query("SELECT * FROM songs ORDER BY song_id LIMIT " + req.params.id +",10", function (err, result, fields) {
+    if (err) throw err;
+	re = result;
+    //console.log(result[0].src);
+	console.log(re);
+	res.render('winter', {
+	
+						title: 'Song List', 
+                    data: result
+                })
+  });
+});
+
+});
+
+app.get('/views/add', function(req, res, next){    
     // render to views/user/add.ejs
     res.render('add', {
         title: '',
@@ -124,7 +144,8 @@ app.post('/add', function(req, res, next){
 		}
 	console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
       var oldpath = files.filetoupload.path;
-      var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
+    //  var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
+	var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
       fs.rename(oldpath, newpath, function (err) {
         if (err) throw err;
         //res.write('File uploaded and moved!');
