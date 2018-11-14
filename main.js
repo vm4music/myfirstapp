@@ -25,8 +25,8 @@ app.use('/views', express.static(__dirname + '/views'));
 var con = mysql.createPool({
 connectionLimit : 100,
   host: "localhost",
-  user: "root",
-  password: "root",
+  user: "demouser",
+  password: "demopassword",
   database: "musicapp"
 });
 
