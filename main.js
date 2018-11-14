@@ -177,3 +177,22 @@ app.post('/add', function(req, res, next){
     }
 });
 
+app.get('/(:id)', function(req, res, next) {
+console.log(req.params.id);
+	con.getConnection(function(err) {
+  if (err) throw err;
+  console.log(req.params.id);
+  con.query("SELECT * FROM songs ORDER BY song_id LIMIT " + req.params.id +",10", function (err, result, fields) {
+    if (err) throw err;
+	re = result;
+    //console.log(result[0].src);
+	//console.log(re);
+	res.render('winter', {
+	
+						title: 'Song List', 
+                    data: result
+                })
+  });
+});
+
+});
