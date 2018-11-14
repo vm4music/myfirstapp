@@ -65,7 +65,6 @@ app.get('/', function(req, res, next) {
     if (err) throw err;
 	re = result;
     //console.log(result[0].src);
-	console.log(re);
 	
 	res.render('winter', {
 						title: 'Song List', 
@@ -76,27 +75,7 @@ app.get('/', function(req, res, next) {
 
 });
 
-app.get('/(:id)', function(req, res, next) {
-console.log(req.params.id);
-	con.getConnection(function(err) {
-  if (err) throw err;
-  console.log(req.params.id);
-  con.query("SELECT * FROM songs ORDER BY song_id LIMIT " + req.params.id +",10", function (err, result, fields) {
-    if (err) throw err;
-	re = result;
-    //console.log(result[0].src);
-	console.log(re);
-	res.render('winter', {
-	
-						title: 'Song List', 
-                    data: result
-                })
-  });
-});
-
-});
-
-app.get('/views/add', function(req, res, next){    
+app.get('/add', function(req, res, next){    
     // render to views/user/add.ejs
     res.render('add', {
         title: '',
@@ -104,7 +83,6 @@ app.get('/views/add', function(req, res, next){
         src: ''
     })
 });
-	
 
 app.post('/add', function(req, res, next){    
     //req.assert('name', 'Name is required').notEmpty()           //Validate name
@@ -145,7 +123,7 @@ app.post('/add', function(req, res, next){
 	console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
       var oldpath = files.filetoupload.path;
      var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
-	//var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
+	 //var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
       fs.rename(oldpath, newpath, function (err) {
         if (err) throw err;
         //res.write('File uploaded and moved!');
@@ -191,11 +169,30 @@ app.post('/add', function(req, res, next){
          * Using req.body.name 
          * because req.param('name') is deprecated
          */ 
-        res.render('/add', { 
+        res.render('add', { 
             title: req.body.title,
             author: req.body.author,
             src: req.body.src
         })
     }
 });
+
+app.get('/(:id)', function(req, res, next) {
+console.log(req.params.id);
+	con.getConnection(function(err) {
+  if (err) throw err;
+  console.log(req.params.id);
+  con.query("SELECT * FROM songs ORDER BY song_id LIMIT " + req.params.id +",10", function (err, result, fields) {
+    if (err) throw err;
+	re = result;
+    //console.log(result[0].src);
+	//console.log(re);
+	res.render('winter', {
 	
+						title: 'Song List', 
+                    data: result
+                })
+  });
+});
+
+});
