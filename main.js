@@ -22,7 +22,7 @@ app.use('/mymusicapp', express.static(__dirname + '/mymusicapp'));
 app.use('/views', express.static(__dirname + '/views'));
 
 var con = mysql.createPool({
-connectionLimit : 10,
+connectionLimit : 100,
   host: "localhost",
   user: "demouser",
   password: "demopassword",
