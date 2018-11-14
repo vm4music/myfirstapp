@@ -20,12 +20,13 @@ app.use(express.static('public'));
 //Serves all the request which includes /images in the url from Images folder
 app.use('/mymusicapp', express.static(__dirname + '/mymusicapp'));
 app.use('/views', express.static(__dirname + '/views'));
+//app.use('/', express.static(__dirname + ''));
 
 var con = mysql.createPool({
 connectionLimit : 100,
   host: "localhost",
-  user: "demouser",
-  password: "demopassword",
+  user: "root",
+  password: "root",
   database: "musicapp"
 });
 
@@ -178,7 +179,7 @@ app.post('/add', function(req, res, next){
 });
 
 app.get('/(:id)', function(req, res, next) {
-console.log(req.params.id);
+//console.log(req.params.id);
 	con.getConnection(function(err) {
   if (err) throw err;
   console.log(req.params.id);
