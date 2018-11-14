@@ -114,18 +114,18 @@ h1,a:link, a:visited {
 			<% if (data.length > 0) {%>
 				<table id="song_table">
 					<tr>
-															<th>#</th>
+						<th>#</th>
 						<th>Title</th>
 					</tr>
 					<% data.forEach((dataa, index) => { %>
 					<tr>
 						<td><%= index+1 %></td>
-						<td><a href="" onclick="return playAudio2('mymusicapp/<%= dataa.src %>')"><%= dataa.songname %> [<%= dataa.src %>]</a></td>
+						<td><a href="" onclick="return playAudio2('mymusicapp/<%= dataa.src %>')"><b><%= dataa.songname %></b> [<i><%= dataa.src %></i>]</a></td>
 						
 					</tr>		
 					 <% }) %>
 					 <tr>
-						<td><a href="/views/add">Add Songs</a></td>
+						<td><a href="/add">Add Songs</a></td>
 						<td></td>
 					 </tr>
 				</table>
@@ -150,7 +150,7 @@ h1,a:link, a:visited {
 	</div>
 	</form>
 	
-	
+</div>	
 
 	<script>
 var x = document.getElementById("myAudio"); 
@@ -175,6 +175,6 @@ function pauseAudio() {
 } 
 </script>
 
-</div>
+
 </body>
 </html>
