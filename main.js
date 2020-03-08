@@ -117,7 +117,7 @@ app.post('/add', function(req, res, next){
     form.parse(req, function (err, fields, files) {
 	
 	song = {
-			songname: fields.title,
+	    title: fields.title,
             author: fields.author,
             src: files.filetoupload.name
 		}
