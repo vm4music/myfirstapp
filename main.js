@@ -140,9 +140,9 @@ app.post('/add', function(req, res, next){
                     console.log(err);
                     // render to views/user/add.ejs
                     res.render('add', {
-                        title: song.songname,
-						author: song.author,
-						src: song.src
+                        title: song.title,
+			author: song.author,
+			src: song.src
                     })
                 } else {                
                     //req.flash('success', 'Data added successfully!')
@@ -150,8 +150,8 @@ app.post('/add', function(req, res, next){
                     // render to views/user/add.ejs
                     res.render('add', {
                         title: '',
-						author: '',
-						src: ''                    
+			author: '',
+			src: ''                    
                     })
                 }
             })
@@ -190,9 +190,8 @@ app.get('/(:id)', function(req, res, next) {
     //console.log(result[0].src);
 	//console.log(re);
 	res.render('winter', {
-	
-						title: 'Song List', 
-                    data: result
+			title: 'Song List', 
+                	data: result
                 })
   });
 });
