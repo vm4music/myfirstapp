@@ -123,7 +123,8 @@ app.post('/add', function(req, res, next){
 		}
 	console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
       var oldpath = files.filetoupload.path;
-     var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
+	    var newpath = '/myfirstapp/mymusicapp/' + files.filetoupload.name;
+     	//var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
 	 //var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
       fs.rename(oldpath, newpath, function (err) {
         if (err) throw err;
