@@ -137,7 +137,7 @@ app.post('/add', function(req, res, next){
                 //if(err) throw err
                 if (err) {
                     //req.flash('error', err)
-                    
+                    console.log(err);
                     // render to views/user/add.ejs
                     res.render('add', {
                         title: song.songname,
