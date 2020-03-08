@@ -10,6 +10,43 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <style>
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+  background-color: #f3f3f3;
+}
+li {
+  float: left;
+}
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+li a.active {
+  color: white;
+  background-color: #4CAF50;
+}
+#song_table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+#song_table td, #song_table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+	overflow: hidden;
+}
+
 .eg{
  background-color: aliceblue;
  padding-bottom: 80px;
@@ -28,7 +65,7 @@ h1,a:link, a:visited {
 
 	
 
-	#song_table {
+#song_table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -92,6 +129,11 @@ h1,a:link, a:visited {
 
 </head>
 <body>
+<ul>
+  <li><a class="active" href="">Home</a></li>
+  <li><a href="/add">Add</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ul>
 
 <div class="eg">
 	<form>
