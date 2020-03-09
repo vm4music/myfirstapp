@@ -68,7 +68,7 @@ app.get('/', function(req, res, next) {
     //console.log(result[0].src);
 	
 	res.render('winter', {
-						title: 'Song List', 
+					title: 'Songs List', 
                     data: result
                 })
   });
