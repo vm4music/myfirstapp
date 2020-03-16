@@ -20,6 +20,7 @@ app.use(express.static('public'));
 //Serves all the request which includes /images in the url from Images folder
 app.use('/mymusicapp', express.static(__dirname + '/mymusicapp'));
 app.use('/views', express.static(__dirname + '/views'));
+app.use('/images', express.static(__dirname + '/images'));
 //app.use('/', express.static(__dirname + ''));
 
 var con = mysql.createPool({
