@@ -85,6 +85,15 @@ app.get('/add', function(req, res, next){
     })
 });
 
+app.get('/home', function(req, res, next){    
+    // render to views/user/add.ejs
+    res.render('home', {
+        title: '',
+        author: '',
+        src: ''
+    })
+});
+
 app.post('/add', function(req, res, next){    
     //req.assert('name', 'Name is required').notEmpty()           //Validate name
     //req.assert('age', 'Age is required').notEmpty()             //Validate age
