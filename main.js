@@ -123,16 +123,16 @@ app.post('/add', function(req, res, next){
         var song = {};
 	
 		var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
+        form.parse(req, function (err, fields, files) {
 	
-	song = {
-	    title: fields.title,
-            author: fields.author,
-            src: files.filetoupload.name
-		}
-	console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
-      var oldpath = files.filetoupload.path;
-	    var newpath = '/home/vikky/myfirstapp/mymusicapp/' + files.filetoupload.name;
+	    song = {
+	            title: fields.title,
+                author: fields.author,
+                src: files.filetoupload.name
+		    }
+        console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
+        var oldpath = files.filetoupload.path;
+        var newpath = '/home/vikky/myfirstapp/mymusicapp/' + files.filetoupload.name;
      	//var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
 	 //var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
       fs.rename(oldpath, newpath, function (err) {
@@ -150,17 +150,16 @@ app.post('/add', function(req, res, next){
                     // render to views/user/add.ejs
                     res.render('add', {
                         title: song.title,
-			author: song.author,
-			src: song.src
+			            author: song.author,
+			            src: song.src
                     })
                 } else {                
                     //req.flash('success', 'Data added successfully!')
-                    
                     // render to views/user/add.ejs
                     res.render('add', {
                         title: '',
-			author: '',
-			src: ''                    
+			            author: '',
+			            src: ''                    
                     })
                 }
             })
@@ -188,6 +187,7 @@ app.post('/add', function(req, res, next){
     }
 });
 
+/*
 app.get('/(:id)', function(req, res, next) {
 //console.log(req.params.id);
 	con.getConnection(function(err) {
@@ -205,4 +205,4 @@ app.get('/(:id)', function(req, res, next) {
   });
 });
 
-});
+});*/
