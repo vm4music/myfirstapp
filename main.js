@@ -98,7 +98,7 @@ app.get('/home', function(req, res, next){
 
 app.get('/details', function(req, res, next){    
     // render to views/user/add.ejs
-    res.render('details', {
+    res.render('detail', {
         title: '',
         author: '',
         src: ''
