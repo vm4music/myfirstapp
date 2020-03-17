@@ -21,6 +21,7 @@ app.use(express.static('public'));
 app.use('/mymusicapp', express.static(__dirname + '/mymusicapp'));
 app.use('/views', express.static(__dirname + '/views'));
 app.use('/images', express.static(__dirname + '/images'));
+app.use('/css', express.static(__dirname + '/css'));
 //app.use('/', express.static(__dirname + ''));
 
 var con = mysql.createPool({
