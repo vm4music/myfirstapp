@@ -42,6 +42,138 @@ app.use(bodyParser.json()); // parse form data client
 //app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
 //app.use(fileUpload()); // configure fileupload
 
+//Landing Page of the app.
+app.get('/', function(req, res, next) {
+	
+	res.render('detail2', {
+					title: 'Landing Page'
+                })
+  
+});
+
+//Route to add the new songs.
+app.get('/add', function(req, res, next){    
+    // render to views/user/add.ejs
+    res.render('add', {
+        title: '',
+        author: '',
+        src: ''
+    })
+});
+
+
+app.get('/home', function(req, res, next){    
+    // render to views/user/add.ejs
+    res.render('home', {
+        title: '',
+        author: '',
+        src: ''
+    })
+});
+
+
+app.get('/details', function(req, res, next){    
+    // render to views/user/add.ejs
+    res.render('detail2', {
+        title: '',
+        author: '',
+        src: ''
+    })
+});
+
+app.get('/product-detail', function(req, res, next){    
+    // render to views/user/add.ejs
+    res.render('detail', {
+        title: '',
+        author: '',
+        src: ''
+    })
+});
+
+
+app.post('/add', function(req, res, next){    
+    var errors = req.validationErrors()
+    
+    if( !errors ) {   //No errors were found.  Passed Validation!
+        
+        var song = {};
+	
+		var form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+	
+	    song = {
+	            title: fields.title,
+                author: fields.author,
+                src: files.filetoupload.name
+		    }
+        console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
+        var oldpath = files.filetoupload.path;
+        var newpath = '/home/vikky/myfirstapp/mymusicapp/' + files.filetoupload.name;
+     	//var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
+	 //var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+        //
+      });
+	  
+	  con.getConnection(function(error, conn) {
+            con.query('INSERT INTO songs SET ?', song, function(err, result) {
+                if (err) {
+                    console.log(err);
+                    res.render('add', {
+                        title: song.title,
+			            author: song.author,
+			            src: song.src
+                    })
+                } else {                
+                    res.render('add', {
+                        title: '',
+			            author: '',
+			            src: ''                    
+                    })
+                }
+            })
+        })
+ });
+    }
+    else {   //Display errors to user
+        var error_msg = ''
+        errors.forEach(function(error) {
+            error_msg += error.msg + '<br>'
+        })                
+        req.flash('error', error_msg)        
+        
+        res.render('add', { 
+            title: req.body.title,
+            author: req.body.author,
+            src: req.body.src
+        })
+    }
+});
+
+app.use((req, res, next) => {
+    const error = new Error("Not found");
+    error.status = 404;
+    next(error);
+  });
+  
+  // error handler middleware
+  app.use((error, req, res, next) => {
+    /*  
+    res.status(error.status || 500).send({
+        error: {
+          status: error.status || 500,
+          message: error.message || 'Internal Server Error',
+        },
+      });
+      */
+     res.render("pageNotFound");
+    //  res.sendFile("C:/Users/Vikas/Documents/GitHub/myfirstapp/views/pageNotFound.ejs");
+    });
+  
+
+
+
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
@@ -61,6 +193,9 @@ http.createServer(function (req, res) {
   });
 }).listen(1337);
 */
+
+/*
+Home page for the music app.
 app.get('/', function(req, res, next) {
 	con.getConnection(function(err) {
   if (err) throw err;
@@ -78,33 +213,6 @@ app.get('/', function(req, res, next) {
 
 });
 
-app.get('/add', function(req, res, next){    
-    // render to views/user/add.ejs
-    res.render('add', {
-        title: '',
-        author: '',
-        src: ''
-    })
-});
-
-app.get('/home', function(req, res, next){    
-    // render to views/user/add.ejs
-    res.render('home', {
-        title: '',
-        author: '',
-        src: ''
-    })
-});
-
-app.get('/details', function(req, res, next){    
-    // render to views/user/add.ejs
-    res.render('detail', {
-        title: '',
-        author: '',
-        src: ''
-    })
-});
-
 
 app.post('/add', function(req, res, next){    
     //req.assert('name', 'Name is required').notEmpty()           //Validate name
@@ -115,23 +223,26 @@ app.post('/add', function(req, res, next){
     
     if( !errors ) {   //No errors were found.  Passed Validation!
         
-        /********************************************
-         * Express-validator module
+        /* 
+        Express-validator module
          
         req.body.comment = 'a <span>comment</span>';
         req.body.username = '   a user    ';
  
         req.sanitize('comment').escape(); // returns 'a &lt;span&gt;comment&lt;/span&gt;'
         req.sanitize('username').trim(); // returns 'a user'
-        ********************************************/
+        */
         //var input = JSON.parse(JSON.stringify(req.body));
 		//console.log(req.body);
 		
-		/*var song = {
+        /**
+         *var song = {
             songname: req.sanitize('title').escape().trim(),
             author: req.sanitize('author').escape().trim(),
             src: req.sanitize('src').escape().trim()
-        }*/
+        }
+         * /
+
         var song = {};
 	
 		var form = new formidable.IncomingForm();
@@ -190,7 +301,7 @@ app.post('/add', function(req, res, next){
         /**
          * Using req.body.name 
          * because req.param('name') is deprecated
-         */ 
+         * / 
         res.render('add', { 
             title: req.body.title,
             author: req.body.author,
@@ -198,7 +309,7 @@ app.post('/add', function(req, res, next){
         })
     }
 });
-
+*/
 /*
 app.get('/(:id)', function(req, res, next) {
 //console.log(req.params.id);
