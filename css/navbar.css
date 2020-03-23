@@ -1,0 +1,20 @@
+nav.navbar { background: #fff; border-color: #ccc; box-shadow: 0 0 2px 0 #ccc; height: 100px; }
+nav.navbar a { color:darkcyan; font-size: large;}
+nav.navbar a:hover{color: cyan;}
+nav.navbar ul.navbar-nav a { color: darkcyan; border-style: solid; border-width: 0 0 2px 0; border-color: #fff; }
+nav.navbar button {background-color: darkcyan;}
+nav.navbar button:hover{background-color: rgb(1, 92, 92);}
+nav.navbar ul.navbar-nav a:visited,
+nav.navbar ul.navbar-nav a:focus,
+nav.navbar ul.navbar-nav a:active { background: #fff; }
+nav.navbar ul.navbar-nav a:hover { border-color: #f14444; }
+nav.navbar li.divider { background: #ccc; }
+nav.navbar button.navbar-toggle { background: #f14444; border-radius: 2px; }
+nav.navbar button.navbar-toggle:hover { background: #999; }
+nav.navbar button.navbar-toggle > span.icon-bar { background: #fff; }
+nav.navbar ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
+nav.navbar ul.dropdown-menu > li > a { color: #444; }
+nav.navbar ul.dropdown-menu > li > a:hover { background: #f14444; color: #fff; }
+nav.navbar span.badge { background: #f14444; font-weight: normal; font-size: 11px; margin: 0 4px; }
+nav.navbar span.badge.new { background: darkcyan(255, 0, 0, 0.8); color: #fff; }
+.fa-user{padding: 80px;}

@@ -27,9 +27,9 @@ app.use('/css', express.static(__dirname + '/css'));
 var con = mysql.createPool({
 connectionLimit : 100,
   host: "localhost",
-  user: "demouser",
-  password: "demopassword",
-  database: "musicapp"
+  user: "root",
+  password: "root",
+  database: "myshop"
 });
 
 var port = 1337;
@@ -44,11 +44,21 @@ app.use(bodyParser.json()); // parse form data client
 
 //Landing Page of the app.
 app.get('/', function(req, res, next) {
-	
-	res.render('detail2', {
-					title: 'Landing Page'
-                })
-  
+
+    con.getConnection(function(err) {
+        if (err) throw err;
+        con.query("SELECT * FROM products ORDER BY product_id LIMIT 0,10", function (err, result, fields) {
+          if (err) throw err;
+          re = result;
+          //console.log(result[0].src);
+          res.render('detail2', {
+            title: 'Landing Page',
+            data: result
+        })
+    })      
+         
+      });
+
 });
 
 //Route to add the new songs.
@@ -81,6 +91,7 @@ app.get('/details', function(req, res, next){
     })
 });
 
+/*
 app.get('/product-detail', function(req, res, next){    
     // render to views/user/add.ejs
     res.render('detail', {
@@ -89,7 +100,7 @@ app.get('/product-detail', function(req, res, next){
         src: ''
     })
 });
-
+*/
 
 app.post('/add', function(req, res, next){    
     var errors = req.validationErrors()
@@ -151,6 +162,87 @@ app.post('/add', function(req, res, next){
     }
 });
 
+
+app.get('/product-detail/(:id)', function(req, res, next) {
+    //console.log(req.params.id);
+        con.getConnection(function(err) {
+      if (err) throw err;
+      console.log(req.params.id);
+      con.query("SELECT * FROM products where product_id =  " + req.params.id , function (err, result, fields) {
+        if (err) throw err;
+        re = result;
+        //console.log(result[0].src);
+        //console.log(re);
+        res.render('detail', {
+                title: 'Song List', 
+                        data: result
+                    })
+      });
+    });
+    
+    });
+
+    
+    app.get('/test/(:id)', function(req, res, next) {
+        //console.log(req.params.id);
+
+        con.getConnection(function(err) {
+            if (err) throw err;
+            console.log(req.params.id);
+            con.query("SELECT * FROM products where product_id =  " + req.params.id , function (err, result, fields) {
+              if (err) throw err;
+              re = result;
+              //console.log(result[0].src);
+              //console.log(re);
+              res.render('test', {
+                      title: 'Song List', 
+                              data: result
+                          })
+            });
+          });
+        });
+
+
+// app.use((req, res, next) => {
+//     const error = new Error("Not found");
+//     error.status = 404;
+//     next(error);
+//   });
+  
+//   // error handler middleware
+//   app.use((error, req, res, next) => {
+//     /*  
+//     res.status(error.status || 500).send({
+//         error: {
+//           status: error.status || 500,
+//           message: error.message || 'Internal Server Error',
+//         },
+//       });
+//       */
+//      res.render("pageNotFound");
+//     //  res.sendFile("C:/Users/Vikas/Documents/GitHub/myfirstapp/views/pageNotFound.ejs");
+//     });
+  
+
+    // app.get('/product-detail/(:id)', function(req, res, next) {
+    // //console.log(req.params.id);
+    //     con.getConnection(function(err) {
+    //   if (err) throw err;
+    //   console.log(req.params.id);
+    //   con.query("SELECT * FROM products where product_id =  " + req.params.id , function (err, result, fields) {
+    //     if (err) throw err;
+    //     re = result;
+    //     //console.log(result[0].src);
+    //     //console.log(re);
+    //     res.render('detail', {
+    //             title: 'Song List', 
+    //                     data: result
+    //                 })
+    //   });
+    // });
+    
+    // });
+
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;
@@ -170,8 +262,6 @@ app.use((req, res, next) => {
      res.render("pageNotFound");
     //  res.sendFile("C:/Users/Vikas/Documents/GitHub/myfirstapp/views/pageNotFound.ejs");
     });
-  
-
 
 
 app.listen(port, () => {
