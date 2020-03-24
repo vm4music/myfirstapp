@@ -1,0 +1,10 @@
+.login-form{
+    padding: 10% 30% 20%;
+    background-color: teal;
+    height: 60%;
+    color: turquoise;
+}
+
+.invalid-feedback{
+    color: black;
+}

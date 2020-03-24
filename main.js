@@ -162,6 +162,66 @@ app.post('/add', function(req, res, next){
     }
 });
 
+app.post('/addUser', function(req, res, next){    
+    var errors = req.validationErrors()
+    
+    if( !errors ) {   //No errors were found.  Passed Validation!
+        
+        var user = {};
+	
+		var form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+	
+	    song = {
+	            title: fields.title,
+                author: fields.author,
+                src: files.filetoupload.name
+		    }
+        console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
+        var oldpath = files.filetoupload.path;
+        var newpath = '/home/vikky/myfirstapp/mymusicapp/' + files.filetoupload.name;
+     	//var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
+	 //var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+        //
+      });
+	  
+	  con.getConnection(function(error, conn) {
+            con.query('INSERT INTO songs SET ?', song, function(err, result) {
+                if (err) {
+                    console.log(err);
+                    res.render('add', {
+                        title: song.title,
+			            author: song.author,
+			            src: song.src
+                    })
+                } else {                
+                    res.render('add', {
+                        title: '',
+			            author: '',
+			            src: ''                    
+                    })
+                }
+            })
+        })
+ });
+    }
+    else {   //Display errors to user
+        var error_msg = ''
+        errors.forEach(function(error) {
+            error_msg += error.msg + '<br>'
+        })                
+        req.flash('error', error_msg)        
+        
+        res.render('add', { 
+            title: req.body.title,
+            author: req.body.author,
+            src: req.body.src
+        })
+    }
+});
+
 
 app.get('/product-detail/(:id)', function(req, res, next) {
     //console.log(req.params.id);
@@ -182,7 +242,17 @@ app.get('/product-detail/(:id)', function(req, res, next) {
     
     });
 
-    
+    app.get('/signup', function(req, res, next) {
+        //console.log(req.params.id);
+
+        res.render('signup', {
+            title: 'Signup or Login', 
+                    
+                })
+
+        });
+
+
     app.get('/test/(:id)', function(req, res, next) {
         //console.log(req.params.id);
 
