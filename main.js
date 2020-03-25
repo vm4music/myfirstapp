@@ -37,7 +37,7 @@ var port = 1337;
 app.set('port', process.env.port || port); // set express to use this port
 app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // parse form data client
 //app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
 //app.use(fileUpload()); // configure fileupload
@@ -162,49 +162,77 @@ app.post('/add', function(req, res, next){
     }
 });
 
-app.post('/addUser', function(req, res, next){    
+app.get('/signup', function(req, res, next){    
+    console.log("here");
+
     var errors = req.validationErrors()
-    
+
+    res.render('signup',{
+        username: "",
+        password: "",
+        data: ""
+    });
+});
+
+app.get('/login', function(req, res, next){    
+    var errors = req.validationErrors()
+
+    res.render('login',{
+        username: "",
+        password: "",
+        data: ""
+    });
+});
+
+
+app.post('/doLogin', function(req, res, next){    
+    var errors = req.validationErrors()
+    console.log(errors);
     if( !errors ) {   //No errors were found.  Passed Validation!
         
         var user = {};
 	
 		var form = new formidable.IncomingForm();
         form.parse(req, function (err, fields, files) {
-	
-	    song = {
-	            title: fields.title,
-                author: fields.author,
-                src: files.filetoupload.name
+    console.log(fields.username);
+	    user = {
+	            user_name: fields.username,
+                user_password: fields.password,
 		    }
-        console.log(JSON.stringify(song) + "VVVVVVVVVVVVVVVVVVVV");	
-        var oldpath = files.filetoupload.path;
-        var newpath = '/home/vikky/myfirstapp/mymusicapp/' + files.filetoupload.name;
-     	//var newpath = '/home/ubuntu/myfirstapp/mymusicapp/' + files.filetoupload.name;
-	 //var newpath = 'C:/Users/Vikas/mymusicapp/' + files.filetoupload.name;
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        //
-      });
-	  
-	  con.getConnection(function(error, conn) {
-            con.query('INSERT INTO songs SET ?', song, function(err, result) {
-                if (err) {
-                    console.log(err);
-                    res.render('add', {
-                        title: song.title,
-			            author: song.author,
-			            src: song.src
+        console.log(JSON.stringify(user) + "AVVVVVVVVVVVVVVVVVVVV");
+        
+        con.getConnection(function(err) {
+            if (err) throw err;
+            con.query("SELECT count(*) as re FROM user_signup where user_name = '"+fields.username+"' and user_password="+fields.password+";", function (err, result, fields) {
+              if (err) throw err;
+              re = result;
+              console.log(fields);
+              if(re[0].re == '0'){
+                res.render('login', {
+                    username: '',
+                    password: '',
+                        data: "Invalid username / password"
                     })
-                } else {                
-                    res.render('add', {
-                        title: '',
-			            author: '',
-			            src: ''                    
+              }else{
+                con.getConnection(function(err) {
+                    if (err) throw err;
+                    con.query("SELECT * FROM products ORDER BY product_id LIMIT 0,10", function (err, result, fields) {
+                      if (err) throw err;
+                      re = result;
+                      //console.log(result[0].src);
+                      res.render('detail2', {
+                        title: 'Landing Page',
+                        data: result
                     })
-                }
-            })
-        })
+                })      
+                     
+                  });
+            
+              }
+            //   
+        })      
+             
+          });
  });
     }
     else {   //Display errors to user
@@ -222,6 +250,75 @@ app.post('/addUser', function(req, res, next){
     }
 });
 
+
+app.post('/signups', function(req, res, next){    
+    var errors = req.validationErrors()
+    console.log(errors);
+    if( !errors ) {   //No errors were found.  Passed Validation!
+        
+        var user = {};
+	
+		var form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+    console.log(fields.username);
+	    user = {
+	            user_name: fields.username,
+                user_password: fields.password,
+		    }
+        console.log(JSON.stringify(user) + "AVVVVVVVVVVVVVVVVVVVV");
+        
+        con.getConnection(function(err) {
+            if (err) throw err;
+            con.query("SELECT count(*) as re FROM user_signup where user_name = '"+fields.username+"'", function (err, result, fields) {
+              if (err) throw err;
+              re = result;
+              console.log(fields);
+              if(re[0].re != '0'){
+                res.render('signup', {
+                    username: '',
+                    password: '',
+                        data: "This Username is already taken. Please try another username."
+                    })
+              }else{
+                con.getConnection(function(error, conn) {
+                    con.query('INSERT INTO user_signup SET ?', user, function(err, result) {
+                        if (err) {
+                            console.log(err);
+                            res.render('signup', {
+                                username: user.username,
+                                password: user.password,
+                                data: ''
+                            })
+                        } else {                
+                            res.render('signup', {
+                                username: '',
+                                password: '',
+                                data: ''
+                            })
+                        }
+                    })
+                })
+              }
+            //   
+        })      
+             
+          });
+ });
+    }
+    else {   //Display errors to user
+        var error_msg = ''
+        errors.forEach(function(error) {
+            error_msg += error.msg + '<br>'
+        })                
+        req.flash('error', error_msg)        
+        
+        res.render('add', { 
+            title: req.body.title,
+            author: req.body.author,
+            src: req.body.src
+        })
+    }
+});
 
 app.get('/product-detail/(:id)', function(req, res, next) {
     //console.log(req.params.id);
@@ -242,15 +339,15 @@ app.get('/product-detail/(:id)', function(req, res, next) {
     
     });
 
-    app.get('/signup', function(req, res, next) {
-        //console.log(req.params.id);
+    // app.get('/signup', function(req, res, next) {
+    //     //console.log(req.params.id);
 
-        res.render('signup', {
-            title: 'Signup or Login', 
+    //     res.render('signup', {
+    //         title: 'Signup or Login', 
                     
-                })
+    //             })
 
-        });
+    //     });
 
 
     app.get('/test/(:id)', function(req, res, next) {
