@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    
+<head>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>eCommerce Product Detail</title>
@@ -14,68 +12,69 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark nav justify-content-center sticky-top">
-      <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Browse By Age Group</a>
-          </li>
-          <li class="nav-item">
-            <a href="#">
-              <a class="nav-link" href="#">Browse By Category</a>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Contact Us</a>
-          </li>
-      </ul>
-      <div class="search">
-      <form class="form-inline" action="/action_page.php">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-success" type="submit">Search</button>
-      </form>
-    </div>
-    <a href="#">
-      <span class="far fa-user"></span>
-    </a>
-  </nav>
-    <div id="login">
-        <!-- <h3 class="text-center text-white pt-5">Login form</h3> -->
-        <% if (data != "") {%>
-          <h4 class="text-center text-white pt-5"><%= data %></h4>
-          <% } %>
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="/doLogin" method="post" enctype="multipart/form-data">
-                            <h3 class="text-center text-info">Signin</h3>
-                            <div class="form-group">
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" class="form-control" id="username" name="username" value="<%= username %>" placeholder="Enter username"  required >
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Password:</label><br>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required value="<%= password %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <a href="/signup" class="text-info">Sign up</a>
-                            </div>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <% if (messages.error) { %>
+        <%= messages.error %>
+            <% } %>
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark nav justify-content-center sticky-top">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Browse By Age Group</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <a class="nav-link" href="#">Browse By Category</a>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div class="search">
+                        <form class="form-inline" action="/action_page.php">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                            <button class="btn btn-success" type="submit">Search</button>
                         </form>
                     </div>
+                    <a href="#">
+                        <span class="far fa-user"></span>
+                    </a>
+                </nav>
+                <div id="login">
+                    <div class="container">
+                        <div id="login-row" class="row justify-content-center align-items-center">
+                            <div id="login-column" class="col-md-6">
+                                <div id="login-box" class="col-md-12">
+                                    <form id="login-form" action="/login" method="POST">
+                                        <div class="form-group">
+                                            <label for="username" class="text-info">Username:</label>
+                                            <br>
+                                            <!-- <input type="email" id="email" name="username" required> -->
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"  required >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password" class="text-info">Password:</label>
+                                            <br>
+                                            <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label>
+                                            <br>
+                                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
+                                        </div>
+                                        <div id="register-link" class="text-right">
+                                            <a href="/signup" class="text-info">Sign up</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 </body>
-
-
-</html>
