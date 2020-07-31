@@ -1,0 +1,100 @@
+<nav class="navbar navbar-expand-sm  navbar-dark nav  sticky-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Shoprik</a>
+    </div>
+    <ul class="nav">
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Browse By Age Group</a>
+      </li> -->
+      <li class="nav-item">
+        <!-- <div class="search-container">
+          <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div> -->
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link disabled" href="#">Contact Us</a>
+      </li>
+      <li class="nav-item">
+      <% if(name){%>
+  <a class="nav-link" href="/"> Welcome back, <%= name.user_name %></a>
+  <%}%>
+      </li>
+       -->
+    </ul>
+    
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if(session.cart){ var kart = session.cart.items; for(i in session.cart.items){console.log(kart[i].item.product_name)}%>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> <%= session.cart.totalQty %> - Items<span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-cart" role="menu">
+            <% for(i in kart){ %>
+            <li>
+                <span class="item">
+                  <span class="item-left">
+                      <img src="http://lorempixel.com/50/50/" alt="" />
+                      <span class="item-info">
+                        <span><%= kart[i].item.product_name %></span>
+                        <span><%= kart[i].item.product_price %>  -  <%= kart[i].qty %></span>
+                      </span>
+                  </span>
+                  <span class="item-right">
+                      <a href="/remove/<%= kart[i].item.product_id %>" class="btn btn-xs btn-danger pull-right">x</a>
+                  </span>
+              </span>
+            </li>
+            <%}%>
+         <%}%>
+            <div class="dropdown-divider"></div>
+            <li class="divider"></li>
+            <li><a class="text-center" href="/view-cart">View Cart</a></li>
+        </ul>
+      </li>
+
+      
+      <% if(!name){%>
+        <li><a href="/signup"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+        <%}%>
+        <% if(name){%>
+          <!-- <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li> -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> 
+              Welcome <%= name.user_name%>
+            </a>
+            <ul class="dropdown-menu dropdown-cart" role="menu">
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                <!-- <li><a class="dropdown-item" href="#">Link 2</a></li> -->
+            </ul>
+          </li>
+          <%}%>
+          
+    </ul>
+
+  </div>
+
+
+  <!-- <div class="search">
+  <form class="form-inline" action="/action_page.php">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <button class="btn btn-success" type="submit">Search</button>
+  </form>
+</div> -->
+
+
+
+</nav>

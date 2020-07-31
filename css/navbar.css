@@ -1,6 +1,106 @@
-nav.navbar { background: #fff; border-color: #ccc; box-shadow: 0 0 2px 0 #ccc; height: 100px; }
-nav.navbar a { color:darkcyan; font-size: large;}
+ input[type=text] {
+  padding: 5px;
+  margin-top: 4px;
+  font-size: 17px;
+  border: none;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  width: 90%
+}
+
+.search-container{
+	width:50%;
+	margin-left: 20%;
+}
+ .search-container button {
+  float: inherit;
+  padding: 5px 10px;
+  margin-top: 4px;
+  margin-right: 16px;
+  background: #fff;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.nav-item .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .nav-item .search-container {
+    float: none;
+  }
+  .nav-item a, .nav-item input[type=text], .nav-item .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .nav-item input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+
+.dropdown {
+	margin-left: 40px;
+	}
+
+table { font-size: 20px; margin-top: 75px;}
+td { font-size: 15px;}
+ul.dropdown-cart{
+  min-width:250px;
+  background-color: darkslategray;
+  font-size: medium;
+}
+ul.dropdown-cart li .item{
+  display:block;
+  padding:3px 10px;
+  margin: 3px 0;
+}
+/* check the background color of the item row when hover over the item. */
+ul.dropdown-cart li .item:hover{
+  background-color:darkcyan;
+}
+ul.dropdown-cart li .item:after{
+  visibility: hidden;
+  display: block;
+  font-size: medium;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+ul.dropdown-cart li .item-left{
+  float:left;
+}
+ul.dropdown-cart li .item-left img,
+ul.dropdown-cart li .item-left span.item-info{
+  float:left;
+}
+ul.dropdown-cart li .item-left span.item-info{
+  margin-left:10px;   
+}
+ul.dropdown-cart li .item-left span.item-info span{
+  display:block;
+}
+ul.dropdown-cart li .item-right{
+  float:right;
+}
+ul.dropdown-cart li .item-right button{
+  margin-top:14px;
+}
+
+nav.navbar { background: darkcyan; border-color: #ccc; box-shadow: 0 0 2px 0 #ccc; height: 60px; }
+nav.navbar a { color:beige; font-size: 15px; font: arial;}
+nav.navbar button.navbar-toggle { background: #f14444; border-radius: 2px; }
+nav.navbar button.navbar-toggle:hover { background: #999; }
+
 nav.navbar a:hover{color: cyan;}
+/*
 nav.navbar ul.navbar-nav a { color: darkcyan; border-style: solid; border-width: 0 0 2px 0; border-color: #fff; }
 nav.navbar button {background-color: darkcyan;}
 nav.navbar button:hover{background-color: rgb(1, 92, 92);}
@@ -8,13 +108,179 @@ nav.navbar ul.navbar-nav a:visited,
 nav.navbar ul.navbar-nav a:focus,
 nav.navbar ul.navbar-nav a:active { background: #fff; }
 nav.navbar ul.navbar-nav a:hover { border-color: #f14444; }
-nav.navbar li.divider { background: #ccc; }
-nav.navbar button.navbar-toggle { background: #f14444; border-radius: 2px; }
-nav.navbar button.navbar-toggle:hover { background: #999; }
+
+
 nav.navbar button.navbar-toggle > span.icon-bar { background: #fff; }
 nav.navbar ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
 nav.navbar ul.dropdown-menu > li > a { color: #444; }
 nav.navbar ul.dropdown-menu > li > a:hover { background: #f14444; color: #fff; }
 nav.navbar span.badge { background: #f14444; font-weight: normal; font-size: 11px; margin: 0 4px; }
 nav.navbar span.badge.new { background: darkcyan(255, 0, 0, 0.8); color: #fff; }
-.fa-user{padding: 80px;}
+.fa-user{padding: 30px;} */
+
+footer{
+	/* position: fixed; */
+  bottom: 0;
+width: auto;  
+}
+
+
+.footer-distributed{
+	background-color: darkcyan;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px arial;
+
+	padding: 55px 50px;
+	margin-top: 80px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.footer-distributed .footer-left{
+	width: 40%;
+}
+
+.footer-distributed h3{
+	color:  #ffffff;
+	font: normal 36px 'Cookie', arial;
+	margin: 0;
+}
+
+.footer-distributed h3 span{
+	color:  #5383d3;
+}
+
+
+.footer-distributed .footer-links{
+	color:  #ffffff;
+	margin: 20px 0 12px;
+	padding: 0;
+}
+
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+	color:  #8f9296;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+
+.footer-distributed .footer-center{
+	width: 35%;
+}
+
+.footer-distributed .footer-center i{
+	background-color:  #33383b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+	display: inline-block;
+	color: #ffffff;
+	vertical-align: middle;
+	margin:0;
+}
+
+.footer-distributed .footer-center p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+	color:  #5383d3;
+	text-decoration: none;;
+}
+
+.footer-distributed .footer-right{
+	width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+	line-height: 20px;
+	color:  #92999f;
+	font-size: 13px;
+	font-weight: normal;
+	margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+	display: block;
+	color:  #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+	margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color:  #33383b;
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 3px;
+	margin-bottom: 5px;
+} /* */
+@media (max-width: 880px) {
+
+	.footer-distributed{
+		font: bold 14px arial;
+	
+  }
+  .footer-distributed .footer-left,
+	.footer-distributed .footer-center,
+	.footer-distributed .footer-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+	.main {
+		line-height: normal;
+		font-size: auto;
+	}
+}

@@ -44,8 +44,7 @@ con.getConnection(async function(err) {
   });
       });
           }   
-
-
+          
 passport.use(new LocalStrategy( authenticateUser))
 
   }

@@ -16,44 +16,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark nav justify-content-center sticky-top">
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Browse By Age Group</a>
-          </li>
-          <li class="nav-item">
-            <a href="#">
-              <a class="nav-link" href="#">Browse By Category</a>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Contact Us</a>
-          </li>
-          <li class="nav-item">
-          <% if(name){%>
-     <a class="nav-link" href="/"> Welcome back, <%= name.user_name %></a>
-<%}%>
-          </li>
-        </ul>
-        <div class="search">
-        <form class="form-inline" action="/action_page.php">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
-      </div>
-      <a href="/login">
-        <span class="far fa-user"></span>
-      </a>
-            <a href="/logout">
-       <% if(name){%>
-          Logout
-        <%}%>
-      </a>
-    </nav>
-
+    <!-- Header for the page-->
+    <%- include('header') -%>
 
   <% if (data.length > 0) {%>
     <% data.forEach((dataa, index) => { %>
@@ -108,7 +72,8 @@
                           <span class="color blue"></span>
                       </h5>
                       <div class="action">
-                          <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                          <!-- <button class="add-to-cart btn btn-default" type="button">add to cart</button> -->
+                          <a href="/add-to-cart/<%= dataa.product_id %>" class="add-to-cart btn btn-default" >add to cart</a>
                           <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
                       </div>
                   </div>
@@ -118,6 +83,8 @@
 </div>
 <% }) %>
       <% } %>
+
+      <%- include('footer') -%>
  
   </body>
 </html>
