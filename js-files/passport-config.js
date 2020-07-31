@@ -5,8 +5,8 @@ var mysql = require('mysql');
 var con = mysql.createPool({
 connectionLimit : 100,
   host: "172.30.72.137",
-  user: "root",
-  password: "root",
+  user: "demouser",
+  password: "demopassword",
   database: "myshop"
 });
 module.exports = function(passport){
