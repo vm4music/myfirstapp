@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 var mysql = require('mysql');
 var con = mysql.createPool({
 connectionLimit : 100,
-  host: "localhost",
+  host: "172.30.72.137",
   user: "root",
   password: "root",
   database: "myshop"
