@@ -39,7 +39,7 @@ app.use('/css', express.static(__dirname + '/css'));
 
 var con = mysql.createPool({
 connectionLimit : 100,
-  host: "localhost",
+  host: "mysql",
   user: "root",
   password: "root",
   clearExpired: true,
