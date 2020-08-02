@@ -43,12 +43,12 @@ app.use('/css', express.static(__dirname + '/css'));
 var con = mysql.createPool({
 connectionLimit : 100,
   host: "localhost",
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
+  user: process.env.MYSQL_USER || "root",
+  password: process.env.MYSQL_PASSWORD || "Fuckyou@123!",
   clearExpired: true,
   checkExpirationInterval: 9000,
   expiration: 8640,
-  database: process.env.MYSQL_DATABASE
+  database: process.env.MYSQL_DATABASE || "myshop"
 });
 var sessionStore = new MySQLStore({}, con);
 app.use(session({
