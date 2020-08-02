@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt')
 var mysql = require('mysql');
 var con = mysql.createPool({
 connectionLimit : 100,
-  host: "localhost",
-  user: "root",
-  password: "root",
+  host: "172.30.72.137",
+  user: "demouser",
+  password: "demopassword",
   database: "myshop"
 });
 module.exports = function(passport){
