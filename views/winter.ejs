@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
   <meta charset="utf-8">
@@ -8,209 +9,226 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-<style>
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid #e7e7e7;
+      background-color: #f3f3f3;
+    }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid #e7e7e7;
-  background-color: #f3f3f3;
-}
-li {
-  float: left;
-}
-li a {
-  display: block;
-  color: #666;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-li a:hover:not(.active) {
-  background-color: #ddd;
-}
-li a.active {
-  color: white;
-  background-color: darkcyan;
-}
-#song_table {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-#song_table td, #song_table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    overflow: hidden;
-}
+    li {
+      float: left;
+    }
 
-.eg{
- background-color: aliceblue;
- padding-bottom: 80px;
- height: 100%;
-}
+    li a {
+      display: block;
+      color: #666;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
 
-h1,a:link, a:visited {
-    color: cadetblue;
-    width: 100%;
-    text-decoration: none;
-    display: inline-block;
-}
+    li a:hover:not(.active) {
+      background-color: #ddd;
+    }
 
-	
+    li a.active {
+      color: white;
+      background-color: darkcyan;
+    }
 
-#song_table {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
+    #song_table {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-#song_table td, #song_table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
+    #song_table td,
+    #song_table th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      overflow: hidden;
+    }
 
-#song_table tr:nth-child(even){background-color: #f2f2f2;}
+    .eg {
+      background-color: aliceblue;
+      padding-bottom: 80px;
+      height: 100%;
+    }
 
-#song_table tr:hover {background-color: #ddd;}
+    h1,
+    a:link,
+    a:visited {
+      color: cadetblue;
+      width: 100%;
+      text-decoration: none;
+      display: inline-block;
+    }
 
-#song_table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: darkcyan;
-    color: white;
-}
 
-	h1{
-	text-align: center;
-    	}
-	
-	div.center{
-	margin: auto;
-    border: 3px solid green;
-    padding: 10px;
-	width: 50%;
-	}
-	
-p{
-	text-align: center;
-	color: lightslategray;
-	font-size: larger;
-}
-	
-div.player{
-    width: 97%;
-    margin: auto;
-    border: 3px solid green;
-    padding: 10px;
-    position: absolute;
-    position: -webkit-sticky;
-    position: sticky;
-    bottom: 0;
-    background-color: aliceblue;
-}
-	
-audio{
-width : 100%;
-}
-	
-</style>
+
+    #song_table {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #song_table td,
+    #song_table th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    #song_table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #song_table tr:hover {
+      background-color: #ddd;
+    }
+
+    #song_table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: darkcyan;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    div.center {
+      margin: auto;
+      border: 3px solid green;
+      padding: 10px;
+      width: 50%;
+    }
+
+    p {
+      text-align: center;
+      color: lightslategray;
+      font-size: larger;
+    }
+
+    div.player {
+      width: 97%;
+      margin: auto;
+      border: 3px solid green;
+      padding: 10px;
+      position: absolute;
+      position: -webkit-sticky;
+      position: sticky;
+      bottom: 0;
+      background-color: aliceblue;
+    }
+
+    audio {
+      width: 100%;
+    }
+  </style>
 
 </head>
+
 <body>
-<ul>
-  <li><a class="active" href="">Home</a></li>
-  <li><a href="/add">Add</a></li>
-  <li><a href="/home">Home</a></li>
-  <li><a href="#contact">Contact</a></li>
-</ul>
-
-<div class="eg">
-	<form>
-	<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1>Songs</h1>
-    <p>Enjoy your favourite tracks for free...</p> 
-  </div>
-</div>
-		
-			<div class="center">
-				
-				<ul class="pagination justify-content-end">
-					<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="/0">1</a></li>
-					<li class="page-item"><a class="page-link" href="/10">2</a></li>
-					<li class="page-item"><a class="page-link" href="/20">Next</a></li>
-				</ul>
-				
-			<% if (data.length > 0) {%>
-				<table id="song_table">
-					<tr>
-						<th>#</th>
-						<th>Title</th>
-					</tr>
-					<% data.forEach((dataa, index) => { %>
-					<tr>
-						<td><%= index+1 %></td>
-						<td><a href="" onclick="return playAudio2('mymusicapp/<%= dataa.src %>')"><b><%= dataa.songname %></b> [<i><%= dataa.src %></i>]</a></td>
-						
-					</tr>		
-					 <% }) %>
-					 <tr>
-						<td><a href="/add">Add Songs</a></td>
-						<td></td>
-					 </tr>
-				</table>
-				 <% } %>
-				 
-				  <ul class="pagination justify-content-end">
-    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="/0">1</a></li>
-    <li class="page-item"><a class="page-link" href="/10">2</a></li>
-    <li class="page-item"><a class="page-link" href="/20">Next</a></li>
+  <ul>
+    <li><a class="active" href="">Home</a></li>
+    <li><a href="/add">Add</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-				 
-				 <h1>Music</h1>
-			</div>
-			
-			<h1>All rights reserved</h1>
-			<div class="player">
-		<audio id="myAudio" controls>
-			<source  type="audio/mpeg">
-			Your browser does not support the audio tag.
-		</audio>
-	</div>
-	</form>
-	
-</div>	
 
-	<script>
-var x = document.getElementById("myAudio"); 
+  <div class="eg">
+    <form>
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1>Songs</h1>
+          <p>Enjoy your favourite tracks for free...</p>
+        </div>
+      </div>
 
-	
-function playAudio(src) { 
-x.src = src;
-    x.play();
-} 
+      <div class="center">
 
-function playAudio2(src) { 
-//src = src.substring(src.indexOf('1337'));
-//alert(src);
-x.src = src;
-//alert(x.src);
-    x.play();
-	return false;
-} 
+        <ul class="pagination justify-content-end">
+          <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="/0">1</a></li>
+          <li class="page-item"><a class="page-link" href="/10">2</a></li>
+          <li class="page-item"><a class="page-link" href="/20">Next</a></li>
+        </ul>
 
-function pauseAudio() { 
-    x.pause(); 
-} 
-</script>
+        <% if (data.length> 0) {%>
+          <table id="song_table">
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+            </tr>
+            <% data.forEach((dataa, index)=> { %>
+              <tr>
+                <td>
+                  <%= index+1 %>
+                </td>
+                <td><a href="" onclick="return playAudio2('mymusicapp/<%= dataa.src %>')"><b>
+                      <%= dataa.songname %>
+                    </b> [<i>
+                      <%= dataa.src %>
+                    </i>]</a></td>
+
+              </tr>
+              <% }) %>
+                <tr>
+                  <td><a href="/add">Add Songs</a></td>
+                  <td></td>
+                </tr>
+          </table>
+          <% } %>
+
+            <ul class="pagination justify-content-end">
+              <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="/0">1</a></li>
+              <li class="page-item"><a class="page-link" href="/10">2</a></li>
+              <li class="page-item"><a class="page-link" href="/20">Next</a></li>
+            </ul>
+
+            <h1>Music</h1>
+      </div>
+
+      <h1>All rights reserved</h1>
+      <div class="player">
+        <audio id="myAudio" controls>
+          <source type="audio/mpeg">
+          Your browser does not support the audio tag.
+        </audio>
+      </div>
+    </form>
+
+  </div>
+
+  <script>
+    var x = document.getElementById("myAudio");
+
+
+    function playAudio(src) {
+      x.src = src;
+      x.play();
+    }
+
+    function playAudio2(src) {
+      x.src = src;
+      x.play();
+      return false;
+    }
+
+    function pauseAudio() {
+      x.pause();
+    } 
+  </script>
 
 
 </body>
+
 </html>
