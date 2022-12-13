@@ -35,16 +35,16 @@ var sess;
 // Home page for the music app.
 app.get('/', function (req, res) {
 
-  ytdl('https://www.youtube.com/watch?v=QzKIMMq2inI&list=PL0VRw7kMBE_eTASUl02Z0CLA9OofOXW5J&ab_channel=BajaoMusic', {
-    quality: 'highestaudio',
-  }).pipe(fs.createWriteStream('nusrat.mp4'));
+  // ytdl('https://www.youtube.com/watch?v=QzKIMMq2inI&list=PL0VRw7kMBE_eTASUl02Z0CLA9OofOXW5J&ab_channel=BajaoMusic', {
+  //   quality: 'highestaudio',
+  // }).pipe(fs.createWriteStream('nusrat.mp4'));
 
   res.render('winter', {
     title: 'Song List',
     data: [
       { src: 'nusrat.mp4', songname: 'Vigad gayi' },
-      { src: 'nusrat.mp4', songname: 'Vigad gayi' },
-      { src: 'nusrat.mp4', songname: 'Vigad gayi' }
+      { src: 'Ek_Ghar_Rab_Da[ListenVid.com].mp3', songname: 'Ek Ghar Rab Da' },
+      { src: 'jaani.mp3', songname: 'Jaani' }
     ]
   })
 
