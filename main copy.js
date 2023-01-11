@@ -14,6 +14,7 @@ const fileUpload = require('express-fileupload');
 var formidable = require('formidable');
 const bodyParser = require('body-parser');
 const ytdl = require('ytdl-core');
+const yt = require('youtube-search-without-api-key');
 
 var Cart = require('./js-files/cart');
 // var passport = require('passport');
@@ -84,17 +85,22 @@ var sess;
 // });
 
 // Home page for the music app.
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
 
   // console.log(await ytdl.getInfo('https://www.youtube.com/watch?v=ShhaYfC-cR4&t=10635s&ab_channel=OrientalStarAgenciesLtd', [{ lang: 'en' }]))
-  ytdl('https://www.youtube.com/watch?v=QzKIMMq2inI&list=PL0VRw7kMBE_eTASUl02Z0CLA9OofOXW5J&ab_channel=BajaoMusic',{
-    quality: 'highestaudio',
-  }).pipe(fs.createWriteStream('nusrat.mp4'));
+  // ytdl('https://www.youtube.com/watch?v=QzKIMMq2inI&list=PL0VRw7kMBE_eTASUl02Z0CLA9OofOXW5J&ab_channel=BajaoMusic',{
+  //   quality: 'highestaudio',
+  // }).pipe(fs.createWriteStream('nusrat.mp4'));
 
   //video id = UCWzOzdh-my3Ijw0CIgVXUyg
   // let info =  ytdl.getInfo('wtn3csDfzGY');
   // let audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
   // console.log('Formats with only audio: ' + audioFormats.length);
+
+
+const videos = await yt.search('jeda nasha');
+console.log('Videos:');
+console.log(videos);
 
   res.json({ message: 'this id done' })
 

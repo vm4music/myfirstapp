@@ -1,18 +1,24 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var express = require('express');
+
 var app = express();
+
 const fileUpload = require('express-fileupload');
 var formidable = require('formidable');
 const bodyParser = require('body-parser');
+
 const ytdl = require('ytdl-core');
+const yts = require('yt-search')
 
 var Cart = require('./js-files/cart');
+
 app.set('view engine', 'ejs')
-
-
-var re = {};
 app.use(express.static('public'));
 
 //Serves all the request which includes /images in the url from Images folder
@@ -22,10 +28,10 @@ app.use('/images', express.static(__dirname + '/images'));
 app.use('/css', express.static(__dirname + '/css'));
 //app.use('/', express.static(__dirname + ''));
 
-var port = 1337;
+var port = process.env.port || '1337';
+app.set('port', port); // set express to use this port
 
-app.set('port', process.env.port || port); // set express to use this port
-app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
+// app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
 // app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
@@ -33,23 +39,71 @@ app.use(fileUpload()); // configure fileupload
 var sess;
 
 // Home page for the music app.
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
 
-  // ytdl('https://www.youtube.com/watch?v=QzKIMMq2inI&list=PL0VRw7kMBE_eTASUl02Z0CLA9OofOXW5J&ab_channel=BajaoMusic', {
-  //   quality: 'highestaudio',
-  // }).pipe(fs.createWriteStream('nusrat.mp4'));
+  // console.log(await ytdl.getBasicInfo('https://www.youtube.com/watch?v=k09uvR5eUao&ab_channel=ErosNowMusic', []));
+  // ytdl('https://www.youtube.com/watch?v=k09uvR5eUao&ab_channel=ErosNowMusic').pipe(fs.createWriteStream('video.mp4'));
+
+  var dataArr = [];
+
+  const r = await yts('vigad gayi')
+
+  const videos = r.videos.slice(0, 3)
+  videos.forEach(function (v) {
+    const views = String(v.views).padStart(10, ' ')
+    console.log(`${views} | ${v.title} (${v.timestamp}) | ${v.author.name}`)
+    // console.log(v)
+
+    dataArr.push({ src: v.url, songname: v.title, id: v.videoId })
+  })
 
   res.render('winter', {
     title: 'Song List',
-    data: [
-      { src: 'nusrat.mp4', songname: 'Vigad gayi' },
-      { src: 'Ek_Ghar_Rab_Da[ListenVid.com].mp3', songname: 'Ek Ghar Rab Da' },
-      { src: 'jaani.mp3', songname: 'Jaani' }
-    ]
+    data: dataArr
   })
 
 });
 
+
+app.post('/searchSongs', async function (req, res) {
+
+  var dataArr = [];
+  const r = await yts(req.body.search2)
+
+  const videos = r.videos.slice(0, 3)
+  videos.forEach(function (v) {
+
+    const views = String(v.views).padStart(10, ' ')
+    console.log(`${views} | ${v.title} (${v.timestamp}) | ${v.author.url}`)
+
+    dataArr.push({ src: v.url, songname: v.title, id: v.videoId })
+
+  })
+
+  res.render('winter', {
+    title: 'Song List',
+    data: dataArr
+  })
+
+});
+
+app.get('/play/:id', async (req, res) => {
+
+  // console.log(req.params.id + ' this is the id of the song.')
+  const path = 'mymusicapp/songs/' + req.params.id + '.mp4';
+
+  try {
+    fs.accessSync(path);
+    console.log('file exists');
+    // return;
+  } catch (err) {
+    ytdl('http://www.youtube.com/watch?v=' + req.params.id, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp4'));
+
+    console.log('file not found');
+    // console.error(err);
+  }
+  res.json({ message: req.params.id })
+});
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
