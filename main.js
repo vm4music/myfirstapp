@@ -97,7 +97,7 @@ app.get('/play/:id', async (req, res) => {
     console.log('file exists');
     // return;
   } catch (err) {
-    ytdl('http://www.youtube.com/watch?v=' + req.params.id, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp3'));
+    ytdl('http://www.youtube.com/watch?v=' + req.params.id, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp4'));
 
     console.log('file not found');
     // console.error(err);
