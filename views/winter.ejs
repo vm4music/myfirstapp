@@ -178,22 +178,22 @@
   <div class="eg">
 
     <!-- <div class="jumbotron jumbotron-fluid"> -->
-      <div class="container">
-        <h1>Songs</h1>
-        <p>Enjoy your favourite tracks for free...</p>
-      </div>
+    <div class="container">
+      <h1>Songs</h1>
+      <p>Enjoy your favourite tracks for free...</p>
+    </div>
     <!-- </div> -->
 
     <div class="center">
 
-        <form class="example" method="post" action="/searchSongs" style="margin:auto;max-width:300px;">
-          <input type="text" placeholder="Search.." name="search2">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-    
+      <form class="example" method="post" action="/searchSongs" style="margin:auto;max-width:300px;">
+        <input type="text" placeholder="Search.." name="search2">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
 
-    <form>
-     
+
+      <form>
+
         <!-- <ul class="pagination justify-content-end">
           <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
           <li class="page-item"><a class="page-link" href="/0">1</a></li>
@@ -213,13 +213,17 @@
                   <%= index+1 %>
                 </td> -->
                 <td>
-                  <a href="" class="songListItem"
-                    onclick="return playAudio2('<%= dataa.id %>')"><b>
+
+                  <p class="box">
+                    <%= dataa.id %>
+                  </p>
+
+                  <!-- <a href="" class="songListItem" onclick=" playAudio2('<%= dataa.id %>')"><b>
                       <%= dataa.songname %>
                     </b> | <i>
 
                     </i>
-                  </a>
+                  </a> -->
                   <!-- <a href="/play/<%= dataa.id %>">
                     <%= dataa.songname%>
                   </a> -->
@@ -227,7 +231,7 @@
 
               </tr>
               <% }) %>
-                
+
           </table>
           <% } %>
 
@@ -239,15 +243,15 @@
             </ul> -->
 
             <h1>Music</h1>
-      </div>
+    </div>
 
-      <h1>All rights reserved</h1>
-      <div class="player">
-        <audio id="myAudio" controls>
-          <source type="audio/mpeg">
-          Your browser does not support the audio tag.
-        </audio>
-      </div>
+    <h1>All rights reserved</h1>
+    <div class="player">
+      <audio id="myAudio" controls>
+        <source type="audio/mpeg">
+        Your browser does not support the audio tag.
+      </audio>
+    </div>
     </form>
 
   </div>
@@ -256,51 +260,59 @@
 
 
     var x = document.getElementById("myAudio");
+
+    const boxes = document.querySelectorAll('.box');
+
+    boxes.forEach(box => {
+      box.addEventListener('click', function handleClick(event) {
+
+
+        console.log('box clicked' + box.innerHTML, event);
+        // box.setAttribute('style', 'background-color: yellow;');
+
+        $.get("/play/" + box.innerHTML.trim(), function (data, status) {
+              // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+
+          if (status === 'success') {
+
+            // alert('mymusicapp/songs/' + data.message.trim() +'.mp4')
+            x.src = 'mymusicapp/songs/' + data.message.trim() + '.mp3';
+            x.play();
+          }
+
+        });
+
+      });
+    });
     // x.onerror = function () {
     //   alert("Error! Something went wrong");
     // };
 
- 
 
-    function playAudio(src) {
-      x.src = 'mymusicapp/songs/' + src + +'.mp3' ;
-      x.play();
-    }
-    
-    var onEnded = function() {
-    this.play();
-};
- 
-// x.addEventListener('click', onClick, false);
-x.addEventListener('ended', onEnded, false);
+    // function playAudio(src) {
+    //   x.src = 'mymusicapp/songs/' + src + +'.mp3' ;
+    //   x.play();
+    // }
+
+    // function playAudio2(src) {
+
+    //   $.get("/play/" + src, function (data, status) {
+    //     // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+
+    //     if (status === 'success') {
+
+    //       // alert('mymusicapp/songs/' + data.message +'.mp4')
+    //       this.src = 'mymusicapp/songs/' + data.message + '.mp3';
+
+    //     }
+
+    //   });
+
+    //   this.play();
+    //   return false;
+    // }
 
 
-
-    function playAudio2(src) {
-
-      $.get("/play/" + src, function(data, status){
-      // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
-
-
-
-      if(status === 'success'){
-        
-        // alert('mymusicapp/songs/' + data.message +'.mp4')
-        x.src = 'mymusicapp/songs/' + data.message +'.mp3' ;
-
-        x.play();
-      }
-      
-    });
-
-      // x.src = src;
-      // x.play();
-      return false;
-    }
-
-    function pauseAudio() {
-      x.pause();
-    } 
   </script>
 
 
