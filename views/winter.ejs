@@ -220,9 +220,9 @@
 
                     </i>
                   </a>
-                  <a href="/play/<%= dataa.id %>">
+                  <!-- <a href="/play/<%= dataa.id %>">
                     <%= dataa.songname%>
-                  </a>
+                  </a> -->
                 </td>
 
               </tr>
@@ -266,7 +266,7 @@
     // };
 
     function playAudio(src) {
-      x.src = 'mymusicapp/songs/' + src + +'.mp4' ;
+      x.src = 'mymusicapp/songs/' + src + +'.mp3' ;
       x.play();
     }
 
@@ -280,7 +280,7 @@
       if(status === 'success'){
         
         // alert('mymusicapp/songs/' + data.message +'.mp4')
-        x.src = 'mymusicapp/songs/' + data.message +'.mp4' ;
+        x.src = 'mymusicapp/songs/' + data.message +'.mp3' ;
 
         x.play();
       }

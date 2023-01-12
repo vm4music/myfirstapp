@@ -90,14 +90,14 @@ app.post('/searchSongs', async function (req, res) {
 app.get('/play/:id', async (req, res) => {
 
   // console.log(req.params.id + ' this is the id of the song.')
-  const path = 'mymusicapp/songs/' + req.params.id + '.mp4';
+  const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
 
   try {
     fs.accessSync(path);
     console.log('file exists');
     // return;
   } catch (err) {
-    ytdl('http://www.youtube.com/watch?v=' + req.params.id, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp4'));
+    ytdl('http://www.youtube.com/watch?v=' + req.params.id, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp3'));
 
     console.log('file not found');
     // console.error(err);
