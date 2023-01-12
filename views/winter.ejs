@@ -261,6 +261,12 @@
     // };
 
  
+
+    function playAudio(src) {
+      x.src = 'mymusicapp/songs/' + src + +'.mp3' ;
+      x.play();
+    }
+    
     var onEnded = function() {
     this.play();
 };
@@ -268,10 +274,7 @@
 // x.addEventListener('click', onClick, false);
 x.addEventListener('ended', onEnded, false);
 
-    function playAudio(src) {
-      x.src = 'mymusicapp/songs/' + src + +'.mp3' ;
-      x.play();
-    }
+
 
     function playAudio2(src) {
 
