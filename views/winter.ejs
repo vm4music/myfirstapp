@@ -255,15 +255,18 @@
   <script>
 
 
-    $(document).ready(function () {
-
-
-    })
-
     var x = document.getElementById("myAudio");
     // x.onerror = function () {
     //   alert("Error! Something went wrong");
     // };
+
+ 
+    var onEnded = function() {
+    this.play();
+};
+ 
+// x.addEventListener('click', onClick, false);
+x.addEventListener('ended', onEnded, false);
 
     function playAudio(src) {
       x.src = 'mymusicapp/songs/' + src + +'.mp3' ;
