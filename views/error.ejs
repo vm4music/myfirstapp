@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid #e7e7e7;
+            background-color: #f3f3f3;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #666;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        li a.active {
+            color: white;
+            background-color: darkcyan;
+        }
+
+        #song_table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #song_table td,
+        #song_table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            overflow: hidden;
+        }
+
+        .eg {
+            background-color: aliceblue;
+            padding-bottom: 80px;
+            height: 100%;
+        }
+
+        h1,
+        a:link,
+        a:visited {
+            color: cadetblue;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+
+
+        #song_table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #song_table td,
+        #song_table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #song_table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #song_table tr:hover {
+            background-color: #ddd;
+        }
+
+        #song_table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: darkcyan;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        div.center {
+            margin: auto;
+            border: 3px solid green;
+            padding: 10px;
+            width: 50%;
+        }
+
+        p {
+            text-align: center;
+            color: lightslategray;
+            font-size: larger;
+        }
+
+        div.player {
+            width: 97%;
+            margin: auto;
+            border: 3px solid green;
+            padding: 10px;
+            position: absolute;
+            position: -webkit-sticky;
+            position: sticky;
+            bottom: 0;
+            background-color: aliceblue;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        form.example input[type=text] {
+            padding: 10px;
+            font-size: 17px;
+            border: 1px solid grey;
+            float: left;
+            width: 80%;
+            background: #f1f1f1;
+        }
+
+        form.example button {
+            float: left;
+            width: 20%;
+            padding: 10px;
+            background: #2196F3;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;
+        }
+
+        form.example button:hover {
+            background: #0b7dda;
+        }
+
+        form.example::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="center">
+
+        <div id=all style='font-size:160%;background:#DDD' onclick="log('clicked');playSound(myAudio)">
+            Sound1 should be playing every couple seconds.
+            <br />Tap here to play sound1.
+        </div>
+        <div id=debug style='font-size:120%;' onclick="playSound(myAudio2)">
+            Tap here to play the sound2.
+        </div>
+    </div>
+
+    <script>
+        var url = "http://localhost:3000/mymusicapp/songs/Ev_-gOW-gMo.mp4"
+            var url2 = "http://localhost:3000/mymusicapp/songs/Ev_-gOW-gMo.mp4"
+            var myAudio, myAudio2
+            if(0)
+            {
+                var playSound = function(sound)
+                {
+                    log("playSound() readyState="+sound.readyState)
+                    log("gold readyState="+myAudio2.readyState)
+                    sound.play()
+                }
+
+                var loadSound = function(url, callback)
+                {
+                    var audio = new Audio(url)
+                    audio.addEventListener('canplaythrough', function()
+                    {
+                        log('canplaythrough');
+                        if(callback)
+                            callback()
+                    }, false)
+
+                    audio.load()
+                    if(audio.readyState > 3)
+                    {
+                        log('audio.readyState > 3');
+                        if(callback)
+                            callback()
+                    }
+                    return audio
+                }
+
+                myAudio = loadSound(url, startInterval)
+                myAudio2 = loadSound(url2)
+            }
+            else
+            {
+                var playSound = function(sound)
+                {
+                    log("playSound()")
+                    var source = audioContext.createBufferSource()
+                    if(source)
+                    {
+                        source.buffer = sound
+                        if(!source.start)
+                            source.start = source.noteOn
+
+                        if(source.start)
+                        {
+                            var gain = audioContext.createGain()
+                            source.connect(gain)
+                            gain.connect(audioContext.destination)
+
+                            source.start()
+                        }
+                    }
+                }
+
+                var loadSound = function(url, callback)
+                {
+                    log("start loading sound "+url)
+
+                    var ajax = new XMLHttpRequest()
+                    ajax.open("GET", url, true)
+                    ajax.responseType = "arraybuffer"
+                    ajax.onload = function()
+                    {
+                        audioContext.decodeAudioData(
+                            ajax.response,
+                            function(buffer)
+                            {
+                                log("loaded sound "+url)
+                                log(buffer)
+                                callback(buffer)
+                            },
+                            function(error)
+                            {
+                                log(error)
+                            }
+                        )
+
+                    }
+                    ajax.send()
+                }
+
+                var AudioContext = window.AudioContext || window.webkitAudioContext
+                var audioContext = new AudioContext()
+
+                loadSound(url, function(r) {myAudio = r; startInterval()})
+                loadSound(url2, function(r) {myAudio2 = r})
+            }
+
+            function startInterval()
+            {
+                log("startInterval()")
+                setInterval(function()
+                {
+                    playSound(myAudio)
+                }, 2000)
+            }
+
+            function log(m)
+            {
+                console.log(m)
+                debug.innerHTML += m+"<br />"
+            }
+    </script>
+
+
+</body>
+
+</html>
