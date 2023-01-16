@@ -215,7 +215,8 @@
                 <td>
 
                   <p class="box">
-                    <%= dataa.id %>
+                    <%= dataa.songname %>
+                    <input type="hidden" value="<%= dataa.id%>">
                   </p>
 
                   <!-- <a href="" class="songListItem" onclick=" playAudio2('<%= dataa.id %>')"><b>
@@ -266,17 +267,21 @@
     boxes.forEach(box => {
       box.addEventListener('click', function handleClick(event) {
 
-
-        console.log('box clicked' + box.innerHTML, event);
+        let song = box.innerHTML.split('\n')[2];
+        song = song.substring(song.indexOf("value=") + 7, song.indexOf(">") -1 );
+        
+        console.log('box clicked ' + song, event.currentTarget);
+        
         // box.setAttribute('style', 'background-color: yellow;');
 
-        $.get("/play/" + box.innerHTML.trim(), function (data, status) {
-              // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+        $.get("/play/" + song, function (data, status) {
+        //       // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
 
           if (status === 'success') {
 
             // alert('mymusicapp/songs/' + data.message.trim() +'.mp4')
             //http://localhost:3000/mymusicapp/songs/nzYvg1UT3wI.mp3
+
             x.src = 'http://151.106.125.150:1337/mymusicapp/songs/' + data.message.trim() + '.mp3';
             x.play();
           }
