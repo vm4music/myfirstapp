@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/vm4music/myfirstapp#readme",
   "dependencies": {
-    "cors": "^2.8.5",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
