@@ -15,8 +15,6 @@ const bodyParser = require('body-parser');
 
 const ytdl = require('ytdl-core');
 const yts = require('yt-search')
-let cors = require("cors");
-
 
 var Cart = require('./js-files/cart');
 
@@ -36,18 +34,12 @@ app.set('port', port); // set express to use this port
 // app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
-app.use(cors({origin: 'http://localhost:3000'}));
 // app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
 app.use(fileUpload()); // configure fileupload
 var sess;
 
 // Home page for the music app.
 app.get('/', async function (req, res) {
-
-  res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
-    // res.setHeader('Access-Control-Allow-Credentials', true); // If needed
 
   // console.log(await ytdl.getBasicInfo('https://www.youtube.com/watch?v=k09uvR5eUao&ab_channel=ErosNowMusic', []));
   // ytdl('https://www.youtube.com/watch?v=k09uvR5eUao&ab_channel=ErosNowMusic').pipe(fs.createWriteStream('video.mp4'));
@@ -65,9 +57,9 @@ app.get('/', async function (req, res) {
     dataArr.push({ src: v.url, songname: v.title, id: v.videoId })
   })
 
-  res.render('error', {
+  res.render('winter', {
     title: 'Song List',
-    // data: dataArr
+    data: dataArr
   })
 
 });
@@ -107,6 +99,7 @@ app.get('/play/:id', async (req, res) => {
   } catch (err) {
     ytdl('http://www.youtube.com/watch?v=' + req.params.id, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp3'));
 
+    
     console.log('file not found');
     // console.error(err);
   }
