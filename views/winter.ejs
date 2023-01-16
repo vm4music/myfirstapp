@@ -283,6 +283,7 @@
             //http://localhost:3000/mymusicapp/songs/nzYvg1UT3wI.mp3
 
             x.src = 'http://151.106.125.150:1337/mymusicapp/songs/' + data.message.trim() + '.mp3';
+            x.load();
             x.play();
           }
 
