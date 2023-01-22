@@ -130,7 +130,7 @@ filestream.on('open', function() {
 
   // if (chunk_size == fileSizeInBytes) {
     // Serve the whole file as before
-    response.writeHead(200, {
+    res.writeHead(200, {
       "Accept-Ranges": "bytes",
       'Content-Type': 'audio/mp3',
       'Content-Length': fileSizeInBytes});
