@@ -124,10 +124,10 @@ const path = '/mymusicapp/songs/' + req.params.id;
     console.log('file exists');
     res.sendFile('mymusicapp/songs/' + req.params.id)
   } catch (err) {
-    ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
+    //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
 
     
-  //   console.log('file not found');
+    console.log('test');
     // console.error(err);
   }
   res.json({ message: req.params.id })
