@@ -217,7 +217,7 @@
     padding: 8px;
   } */
 
-  .song__table{
+  .song__table, h1{
     margin: auto;
   }
 
