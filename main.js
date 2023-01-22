@@ -93,14 +93,14 @@ app.get('/play/:id', async (req, res) => {
   const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
 
   try {
-    fs.accessSync(path);
+    // fs.accessSync(path);
     console.log('file exists at : '+ path);
 
     var stat = fs.statSync(path);
     console.log(stat.size)
-    
+
     res.writeHead(200, {
-      'Content-Type': 'audio/mpeg',
+      'Content-Type': 'audio/mp3',
       'Content-Length': stat.size
   });
 
