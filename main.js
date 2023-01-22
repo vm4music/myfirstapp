@@ -95,7 +95,7 @@ app.get('/play/:id', async (req, res) => {
   try {
     fs.accessSync(path);
     console.log('file exists at : '+ path);
-    // res.sendFile(path, {acceptRanges: false})
+    res.sendFile(path, {acceptRanges: false})
     // return;
   } catch (err) {
     ytdl('http://www.youtube.com/watch?v=' + req.params.id +'.mp3', { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp3'));
