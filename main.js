@@ -107,32 +107,32 @@ app.get('/play/:id', async (req, res) => {
   res.json({ message: req.params.id })
 });
 
-app.get('/mymusicapp/songs/:id', (req, res) => {
+// app.get('/mymusicapp/songs/:id', (req, res) => {
 
   
-  console.log(req.params.id + ' this is the id of the song.')
-//  const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
-//  const test = 'test.mp3'
-// const path = req.params.id;
-// const path = '/mymusicapp/songs/' + req.params.id;
+//   console.log(req.params.id + ' this is the id of the song.')
+// //  const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
+// //  const test = 'test.mp3'
+// // const path = req.params.id;
+// // const path = '/mymusicapp/songs/' + req.params.id;
 
 
-// // const songId = req.params.id.substring(0, req.params.id.indexOf('.mp3'));
-// //  console.log(req.params.id.substring(0, req.params.id.indexOf('.mp3')))
+// // // const songId = req.params.id.substring(0, req.params.id.indexOf('.mp3'));
+// // //  console.log(req.params.id.substring(0, req.params.id.indexOf('.mp3')))
 
-//   try {
-//     // fs.accessSync(path);
-//     console.log('file exists');
-//     // res.sendFile('mymusicapp/songs/' + req.params.id, {acceptRanges: false})
-//   } catch (err) {
-//     //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
+// //   try {
+// //     // fs.accessSync(path);
+// //     console.log('file exists');
+// //     // res.sendFile('mymusicapp/songs/' + req.params.id, {acceptRanges: false})
+// //   } catch (err) {
+// //     //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
 
     
-//     console.log('test');
-//     // console.error(err);
-//   }
-  res.json({ message: req.params.id })
-});
+// //     console.log('test');
+// //     // console.error(err);
+// //   }
+//   res.json({ message: req.params.id })
+// });
 
 
 app.listen(port, () => {
