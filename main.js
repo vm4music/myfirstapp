@@ -123,7 +123,7 @@ app.get('/mymusicapp/songs/:id', (req, res) => {
 // //   try {
 // //     // fs.accessSync(path);
 // //     console.log('file exists');
-    res.sendFile('/mymusicapp/songs/' + req.params.id, {acceptRanges: false})
+    res.sendFile('/mymusicapp/songs/' + req.params.id + '.mp3', {acceptRanges: false})
 // //   } catch (err) {
 // //     //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
 
