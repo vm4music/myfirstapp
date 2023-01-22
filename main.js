@@ -134,7 +134,7 @@ filestream.on('open', function() {
       "Accept-Ranges": "bytes",
       'Content-Type': 'audio/mp3',
       'Content-Length': fileSizeInBytes});
-    filestream.pipe(response);
+    filestream.pipe(res);
   // } else {
   //   // HTTP/1.1 206 is the partial content response code
   //   response.writeHead(206, {
