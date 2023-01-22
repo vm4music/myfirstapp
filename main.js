@@ -95,6 +95,17 @@ app.get('/play/:id', async (req, res) => {
   try {
     fs.accessSync(path);
     console.log('file exists at : '+ path);
+
+    var stat = fs.statSync(path);
+    console.log(stat.size)
+    
+    res.writeHead(200, {
+      'Content-Type': 'audio/mpeg',
+      'Content-Length': stat.size
+  });
+
+  fs.createReadStream(path).pipe(res);
+
     // return;
   } catch (err) {
     ytdl('http://www.youtube.com/watch?v=' + req.params.id +'.mp3', { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp3'));
