@@ -106,7 +106,7 @@ app.get('/play/:id', async (req, res) => {
   res.json({ message: req.params.id })
 });
 
-app.get('/mymusicapp/songs/:id', async (req, res) => {
+app.get('/mymusicapp/songs/:id', (req, res) => {
 
   
   console.log(req.params.id + ' this is the id of the song.')
@@ -120,9 +120,9 @@ const path = '/mymusicapp/songs/' + req.params.id;
 //  console.log(req.params.id.substring(0, req.params.id.indexOf('.mp3')))
 
   try {
-    fs.accessSync(path);
+    // fs.accessSync(path);
     console.log('file exists');
-    res.sendFile('mymusicapp/songs/' + req.params.id)
+    // res.sendFile('mymusicapp/songs/' + req.params.id, {acceptRanges: false})
   } catch (err) {
     //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
 
