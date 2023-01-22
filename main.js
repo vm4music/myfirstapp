@@ -111,7 +111,7 @@ app.get('/mymusicapp/songs/:id', (req, res) => {
 
   
 //   console.log(req.params.id + ' this is the id of the song.')
-// //  const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
+ const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
 // //  const test = 'test.mp3'
 // // const path = req.params.id;
 // // const path = '/mymusicapp/songs/' + req.params.id;
@@ -123,7 +123,7 @@ app.get('/mymusicapp/songs/:id', (req, res) => {
 // //   try {
 // //     // fs.accessSync(path);
 // //     console.log('file exists');
-// //     // res.sendFile('mymusicapp/songs/' + req.params.id, {acceptRanges: false})
+    res.sendFile('mymusicapp/songs/' + req.params.id, {acceptRanges: false})
 // //   } catch (err) {
 // //     //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
 
