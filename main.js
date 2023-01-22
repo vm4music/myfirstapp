@@ -110,12 +110,13 @@ app.get('/mymusicapp/songs/:id', async (req, res) => {
 
   
   console.log(req.params.id + ' this is the id of the song.')
- // const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
+//  const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
 //  const test = 'test.mp3'
-const path = req.params.id;
+// const path = req.params.id;
+const path = '/mymusicapp/songs/' + req.params.id;
 
 var filestream = fs.createReadStream(path);
-var range = request.headers.range.replace("bytes=", "").split('-');
+var range = req.headers.range.replace("bytes=", "").split('-');
 
 filestream.on('open', function() {
   var stats = fs.statSync(path);
