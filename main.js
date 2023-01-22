@@ -131,7 +131,7 @@ filestream.on('open', function() {
     // Serve the whole file as before
     response.writeHead(200, {
       "Accept-Ranges": "bytes",
-      'Content-Type': 'audio/mpeg',
+      'Content-Type': 'audio/mp3',
       'Content-Length': fileSizeInBytes});
     filestream.pipe(response);
   } else {
@@ -139,7 +139,7 @@ filestream.on('open', function() {
     response.writeHead(206, {
       "Content-Range": "bytes " + bytes_start + "-" + bytes_end + "/" + fileSizeInBytes,
       "Accept-Ranges": "bytes",
-      'Content-Type': 'audio/mpeg',
+      'Content-Type': 'audio/mp3',
       'Content-Length': fileSizeInBytes
     });
     filestream.pipe(response.slice(bytes_start, bytes_end));
