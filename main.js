@@ -70,7 +70,7 @@ app.post('/searchSongs', async function (req, res) {
   var dataArr = [];
   const r = await yts(req.body.search2)
 
-  const videos = r.videos.slice(0, 3)
+  const videos = r.videos.slice(0, 4)
   videos.forEach(function (v) {
 
     const views = String(v.views).padStart(10, ' ')
