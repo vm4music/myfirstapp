@@ -108,25 +108,59 @@ app.get('/play/:id', async (req, res) => {
 
 app.get('/mymusicapp/songs/:id', async (req, res) => {
 
+  
   console.log(req.params.id + ' this is the id of the song.')
  // const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
 //  const test = 'test.mp3'
 const path = req.params.id;
-const songId = req.params.id.substring(0, req.params.id.indexOf('.mp3'));
- console.log(req.params.id.substring(0, req.params.id.indexOf('.mp3')))
 
-  try {
-    fs.accessSync(path);
-    console.log('file exists');
-    // return;
-  } catch (err) {
-    ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
+var filestream = fs.createReadStream(path);
+var range = request.headers.range.replace("bytes=", "").split('-');
+
+filestream.on('open', function() {
+  var stats = fs.statSync(path);
+  var fileSizeInBytes = stats["size"];
+
+  // If the start or end of the range is empty, replace with 0 or filesize respectively
+  var bytes_start = range[0] ? parseInt(range[0], 10) : 0;
+  var bytes_end = range[1] ? parseInt(range[1], 10) : fileSizeInBytes;
+
+  var chunk_size = bytes_end - bytes_start;
+
+  if (chunk_size == fileSizeInBytes) {
+    // Serve the whole file as before
+    response.writeHead(200, {
+      "Accept-Ranges": "bytes",
+      'Content-Type': 'audio/mpeg',
+      'Content-Length': fileSizeInBytes});
+    filestream.pipe(response);
+  } else {
+    // HTTP/1.1 206 is the partial content response code
+    response.writeHead(206, {
+      "Content-Range": "bytes " + bytes_start + "-" + bytes_end + "/" + fileSizeInBytes,
+      "Accept-Ranges": "bytes",
+      'Content-Type': 'audio/mpeg',
+      'Content-Length': fileSizeInBytes
+    });
+    filestream.pipe(response.slice(bytes_start, bytes_end));
+  }
+});
+
+// const songId = req.params.id.substring(0, req.params.id.indexOf('.mp3'));
+//  console.log(req.params.id.substring(0, req.params.id.indexOf('.mp3')))
+
+  // try {
+  //   fs.accessSync(path);
+  //   console.log('file exists');
+  //   // return;
+  // } catch (err) {
+  //   ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
 
     
-  //   console.log('file not found');
-    // console.error(err);
-  }
-  res.json({ message: req.params.id })
+  // //   console.log('file not found');
+  //   // console.error(err);
+  // }
+  // res.json({ message: req.params.id })
 });
 
 
