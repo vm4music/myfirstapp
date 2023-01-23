@@ -149,12 +149,13 @@
           if (status === 'success') {
 
             // alert('mymusicapp/songs/' + data.message.trim() +'.mp4')
+            // alert(data + ' is the data')
             //http://localhost:3000/mymusicapp/songs/nzYvg1UT3wI.mp3
 
             // x.src = 'http://151.106.125.150:1337/mymusicapp/songs/' + data.message.trim() + '.mp3';
             x.src = 'mymusicapp/songs/' + data.message.trim() + '.mp3';
             x.play();
-            // const audio = new Audio('http://151.106.125.150:1337/mymusicapp/songs/' + data.message.trim() + '.mp3');
+            // const audio = new Audio(data);
             // audio.play();
           }
 

@@ -23,6 +23,7 @@ app.use(express.static('public'));
 
 //Serves all the request which includes /images in the url from Images folder
 app.use('/mymusicapp', express.static(__dirname + '/mymusicapp'));
+app.use('/mymusicapp/songs', express.static(__dirname + '/mymusicapp/songs'));
 app.use('/views', express.static(__dirname + '/views'));
 app.use('/images', express.static(__dirname + '/images'));
 app.use('/css', express.static(__dirname + '/css'));
@@ -93,28 +94,15 @@ app.get('/play/:id', async (req, res) => {
   const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
 
   try {
-    // fs.accessSync(path);
+    fs.accessSync(path);
     console.log('file exists at : '+ path);
 
-    var stat = fs.statSync(path);
-    console.log(stat.size)
-
-    res.writeHead(200, {
-      'Content-Type': 'audio/mp3',
-      'Content-Length': stat.size
-  });
-
-  fs.createReadStream(path).pipe(res);
-
-    // return;
   } catch (err) {
     ytdl('http://www.youtube.com/watch?v=' + req.params.id +'.mp3', { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp3'));
-
-    
     console.log('file not found');
     // console.error(err);
   }
-  // res.json({ message: req.params.id })
+  res.json({ message: req.params.id })
 });
 
 app.get('/mymusicapp/songs/:id', (req, res) => {
