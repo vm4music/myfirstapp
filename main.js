@@ -90,8 +90,6 @@ app.post('/searchSongs', async function (req, res) {
 
 app.get('/play/:id', async (req, res) => {
 
-  let range = req.headers.range
-  if(!range) range = 'bytes=0-'
 
 
   // console.log(req.params.id + ' this is the id of the song.')
@@ -99,49 +97,70 @@ app.get('/play/:id', async (req, res) => {
 
   var stat = fs.statSync(path);
   var total = stat.size;
- 
 
-  console.log(range + ' is the range...')
 
-  try {
-    fs.accessSync(path);
-    console.log('file exists at : '+ path);
+  console.log(range + ' is the range... and total: ' + total);
 
-  } catch (err) {
-    ytdl('http://www.youtube.com/watch?v=' + req.params.id +'.aac', { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.aac'));
-    console.log('file not found');
-    // console.error(err);
+  // try {
+  //   fs.accessSync(path);
+  //   console.log('file exists at : '+ path);
+
+  // } catch (err) {
+  //   ytdl('http://www.youtube.com/watch?v=' + req.params.id +'.aac', { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.aac'));
+  //   console.log('file not found');
+  //   // console.error(err);
+  // }
+  var range = req.headers.range;
+  if (!range) range = 'bytes=0-'
+
+
+  if (range) {
+    
+    var parts = range.replace(/bytes=/, "").split("-");
+    var partialstart = parts[0];
+    var partialend = parts[1];
+
+    var start = parseInt(partialstart, 10);
+    var end = partialend ? parseInt(partialend, 10) : total - 1;
+    var chunksize = (end - start) + 1;
+    console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
+
+    var file = fs.createReadStream(path, { start: start, end: end });
+    res.writeHead(206, { 'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': 'audio/mpeg' });
+    file.pipe(res);
+    
+  } else {
+    console.log('ALL: ' + total);
+    res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'audio/mpeg' });
   }
-
-  res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'audio/mpeg' });
-  // res.json({ message: req.params.id })
-});
+    // res.json({ message: req.params.id })
+  });
 
 app.get('/mymusicapp/songs/:id', (req, res) => {
 
-  
+
   console.log(req.params.id + ' this is the id of the song.')
-//  const path = '/mymusicapp/songs/' + req.params.id + '.mp3';
-// // //  const test = 'test.mp3'
-// // // const path = req.params.id;
-const path = '/mymusicapp/songs/' + req.params.id;
+  //  const path = '/mymusicapp/songs/' + req.params.id + '.mp3';
+  // // //  const test = 'test.mp3'
+  // // // const path = req.params.id;
+  const path = '/mymusicapp/songs/' + req.params.id;
 
 
-// // // // const songId = req.params.id.substring(0, req.params.id.indexOf('.mp3'));
-// // // //  console.log(req.params.id.substring(0, req.params.id.indexOf('.mp3')))
+  // // // // const songId = req.params.id.substring(0, req.params.id.indexOf('.mp3'));
+  // // // //  console.log(req.params.id.substring(0, req.params.id.indexOf('.mp3')))
 
-// // //   try {
-    // fs.accessSync(path);
-// // //     console.log('file exists');
-// fs.appendFile(res)
-    // res.sendFile('/mymusicapp/songs/' + req.params.id, {acceptRanges: false})
-// // //   } catch (err) {
-// // //     //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
+  // // //   try {
+  // fs.accessSync(path);
+  // // //     console.log('file exists');
+  // fs.appendFile(res)
+  // res.sendFile('/mymusicapp/songs/' + req.params.id, {acceptRanges: false})
+  // // //   } catch (err) {
+  // // //     //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
 
-    
-// // //     console.log('test');
-// // //     // console.error(err);
-// // //   }
+
+  // // //     console.log('test');
+  // // //     // console.error(err);
+  // // //   }
   res.json({ message: req.params.id })
 });
 
