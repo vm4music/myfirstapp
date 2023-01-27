@@ -92,9 +92,15 @@ app.get('/play/:id', async (req, res) => {
 
   let range = req.headers.range
   if(!range) range = 'bytes=0-'
-  console.log(range + ' is the range...')
+
+  var stat = fs.statSync(path);
+  var total = stat.size;
 
   
+
+  console.log(range + ' is the range...')
+
+
   // console.log(req.params.id + ' this is the id of the song.')
   const path = 'mymusicapp/songs/' + req.params.id + '.aac';
 
@@ -107,7 +113,9 @@ app.get('/play/:id', async (req, res) => {
     console.log('file not found');
     // console.error(err);
   }
-  res.json({ message: req.params.id })
+
+  res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'audio/mpeg' });
+  // res.json({ message: req.params.id })
 });
 
 app.get('/mymusicapp/songs/:id', (req, res) => {
