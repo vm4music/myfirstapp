@@ -114,7 +114,7 @@ app.get('/play/:id', async (req, res) => {
   if (!range) range = 'bytes=0-'
 
 
-  if (range) {
+  if (range != '') {
     
     var parts = range.replace(/bytes=/, "").split("-");
     var partialstart = parts[0];
@@ -128,7 +128,7 @@ app.get('/play/:id', async (req, res) => {
     var file = fs.createReadStream(path, { start: start, end: end });
     res.writeHead(206, { 'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': 'audio/mpeg' });
     file.pipe(res);
-    
+
   } else {
     console.log('ALL: ' + total);
     res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'audio/mpeg' });
