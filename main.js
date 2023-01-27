@@ -90,6 +90,8 @@ app.post('/searchSongs', async function (req, res) {
 
 app.get('/play/:id', async (req, res) => {
 
+  console.log(JSON.stringify(req.headers.range))
+
   // console.log(req.params.id + ' this is the id of the song.')
   const path = 'mymusicapp/songs/' + req.params.id + '.aac';
 
