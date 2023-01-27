@@ -93,16 +93,15 @@ app.get('/play/:id', async (req, res) => {
   let range = req.headers.range
   if(!range) range = 'bytes=0-'
 
-  var stat = fs.statSync(path);
-  var total = stat.size;
-
-  
-
-  console.log(range + ' is the range...')
-
 
   // console.log(req.params.id + ' this is the id of the song.')
   const path = 'mymusicapp/songs/' + req.params.id + '.aac';
+
+  var stat = fs.statSync(path);
+  var total = stat.size;
+ 
+
+  console.log(range + ' is the range...')
 
   try {
     fs.accessSync(path);
