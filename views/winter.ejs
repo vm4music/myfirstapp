@@ -89,7 +89,7 @@
       <!-- <h1>All rights reserved</h1> -->
       <div class="player">
         <audio id="myAudio" controls>
-          <source type="audio/mp3">
+          <source type="audio/mpeg">
           Your browser does not support the audio tag.
         </audio>
       </div>
@@ -153,7 +153,7 @@
             //http://localhost:3000/mymusicapp/songs/nzYvg1UT3wI.mp3
 
             // x.src = 'http://151.106.125.150:1337/mymusicapp/songs/' + data.message.trim() + '.mp3';
-            x.src = 'mymusicapp/songs/' + data.message.trim() + '.mp3';
+            x.src = 'mymusicapp/songs/' + data.message.trim() + '.aac';
             x.play();
             // const audio = new Audio(data);
             // audio.play();

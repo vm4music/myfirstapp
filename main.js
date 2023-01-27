@@ -91,14 +91,14 @@ app.post('/searchSongs', async function (req, res) {
 app.get('/play/:id', async (req, res) => {
 
   // console.log(req.params.id + ' this is the id of the song.')
-  const path = 'mymusicapp/songs/' + req.params.id + '.mp3';
+  const path = 'mymusicapp/songs/' + req.params.id + '.aac';
 
   try {
     fs.accessSync(path);
     console.log('file exists at : '+ path);
 
   } catch (err) {
-    ytdl('http://www.youtube.com/watch?v=' + req.params.id +'.mp3', { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.mp3'));
+    ytdl('http://www.youtube.com/watch?v=' + req.params.id +'.aac', { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + req.params.id + '.aac'));
     console.log('file not found');
     // console.error(err);
   }
@@ -122,7 +122,7 @@ const path = '/mymusicapp/songs/' + req.params.id;
     // fs.accessSync(path);
 // // //     console.log('file exists');
 // fs.appendFile(res)
-    res.sendFile('/mymusicapp/songs/' + req.params.id, {acceptRanges: false})
+    // res.sendFile('/mymusicapp/songs/' + req.params.id, {acceptRanges: false})
 // // //   } catch (err) {
 // // //     //ytdl('http://www.youtube.com/watch?v=' + songId, { quality: 'highestaudio' }).pipe(fs.createWriteStream('mymusicapp/songs/' + songId + '.mp3'));
 
@@ -130,7 +130,7 @@ const path = '/mymusicapp/songs/' + req.params.id;
 // // //     console.log('test');
 // // //     // console.error(err);
 // // //   }
-  // res.json({ message: req.params.id })
+  res.json({ message: req.params.id })
 });
 
 
