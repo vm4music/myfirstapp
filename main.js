@@ -99,8 +99,7 @@ app.get('/play/:id', async (req, res) => {
   var total = stat.size;
 
 
-  console.log(range + ' is the range... and total: ' + total);
-
+  
   // try {
   //   fs.accessSync(path);
   //   console.log('file exists at : '+ path);
@@ -112,6 +111,8 @@ app.get('/play/:id', async (req, res) => {
   // }
   var range = req.headers.range;
   if (!range) range = 'bytes=0-'
+
+  console.log(range + ' is the range... and total: ' + total);
 
 
   if (range != '') {
