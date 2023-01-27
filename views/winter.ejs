@@ -143,23 +143,24 @@
 
         // box.setAttribute('style', 'background-color: yellow;');
 
-        $.get("/play/" + song, function (data, status) {
+        // $.get("/play/" + song, function (data, status) {
           //       // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
 
-          if (status === 'success') {
+          // if (status === 'success') {
 
             // alert('mymusicapp/songs/' + data.message.trim() +'.mp4')
             // alert(data + ' is the data')
             //http://localhost:3000/mymusicapp/songs/nzYvg1UT3wI.mp3
 
             // x.src = 'http://151.106.125.150:1337/mymusicapp/songs/' + data.message.trim() + '.mp3';
-            x.src = 'mymusicapp/songs/' + data.message.trim() + '.aac';
+            // x.src = 'mymusicapp/songs/' + data.message.trim() + '.aac';
+            x.src = 'mymusicapp/songs/' + song.trim() + '.aac';
             x.play();
             // const audio = new Audio(data);
             // audio.play();
-          }
+          // }
 
-        });
+        // });
 
       });
     });
