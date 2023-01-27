@@ -47,52 +47,52 @@
     <!--==================== SONGS ====================-->
     <section class="songs section" id="songs">
 
-        <% if (data.length> 0) {%>
-          <table id="song_table" class="song__table">
+      <% if (data.length> 0) {%>
+        <table id="song_table" class="song__table">
+          <tr>
+            <!-- <th>#</th> -->
+            <th>Songs</th>
+          </tr>
+          <% data.forEach((dataa, index)=> { %>
             <tr>
-              <!-- <th>#</th> -->
-              <th>Songs</th>
-            </tr>
-            <% data.forEach((dataa, index)=> { %>
-              <tr>
-                <!-- <td>
+              <!-- <td>
                   <%= index+1 %>
                 </td> -->
-                <td>
-  
-                  <p class="box">
-                    <%= dataa.songname %>
-                      <input type="hidden" value="<%= dataa.id%>">
-                  </p>
-  
-                  <!-- <a href="" class="songListItem" onclick=" playAudio2('<%= dataa.id %>')"><b>
+              <td>
+
+                <p class="box">
+                  <%= dataa.songname %>
+                    <input type="hidden" value="<%= dataa.id%>">
+                </p>
+
+                <!-- <a href="" class="songListItem" onclick=" playAudio2('<%= dataa.id %>')"><b>
                       <%= dataa.songname %>
                     </b> | <i>
   
                     </i>
                   </a> -->
-                  <!-- <a href="/play/<%= dataa.id %>">
+                <!-- <a href="/play/<%= dataa.id %>">
                     <%= dataa.songname%>
                   </a> -->
-                </td>
-  
-              </tr>
-              <% }) %>
-  
-          </table>
-          <% } %>
-      
+              </td>
+
+            </tr>
+            <% }) %>
+
+        </table>
+        <% } %>
+
     </section>
 
     <!--==================== FOOTER ====================-->
     <!-- <section class="section"  id="footer"> -->
-      <!-- <h1>All rights reserved</h1> -->
-      <div class="player">
-        <audio id="myAudio" controls>
-          <source type="audio/mpeg">
-          Your browser does not support the audio tag.
-        </audio>
-      </div>
+    <!-- <h1>All rights reserved</h1> -->
+    <div class="player">
+      <audio id="myAudio" controls>
+        <source type="audio/mpeg">
+        Your browser does not support the audio tag.
+      </audio>
+    </div>
     <!-- </section> -->
 
 
@@ -144,21 +144,30 @@
         // box.setAttribute('style', 'background-color: yellow;');
 
         // $.get("/play/" + song, function (data, status) {
-          //       // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+        //       // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
 
-          // if (status === 'success') {
+        // if (status === 'success') {
 
-            // alert('mymusicapp/songs/' + data.message.trim() +'.mp4')
-            // alert(data + ' is the data')
-            //http://localhost:3000/mymusicapp/songs/nzYvg1UT3wI.mp3
+        // alert('mymusicapp/songs/' + data.message.trim() +'.mp4')
+        // alert(data + ' is the data')
+        //http://localhost:3000/mymusicapp/songs/nzYvg1UT3wI.mp3
 
-            // x.src = 'http://151.106.125.150:1337/mymusicapp/songs/' + data.message.trim() + '.mp3';
-            // x.src = 'mymusicapp/songs/' + data.message.trim() + '.aac';
-            x.src = 'mymusicapp/songs/' + song.trim() + '.aac';
-            x.play();
-            // const audio = new Audio(data);
-            // audio.play();
-          // }
+        // x.src = 'http://151.106.125.150:1337/mymusicapp/songs/' + data.message.trim() + '.mp3';
+        // x.src = 'mymusicapp/songs/' + data.message.trim() + '.aac';
+
+        $.post("/play/",
+          {
+            name: song,
+            city: "Duckburg"
+          },
+          function (data, status) {
+            alert("Data: " + data + "\nStatus: " + status);
+          });
+        x.src = 'mymusicapp/songs/' + song.trim() + '.aac';
+        x.play();
+        // const audio = new Audio(data);
+        // audio.play();
+        // }
 
         // });
 
