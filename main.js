@@ -95,6 +95,13 @@ app.get('/playNew/:id', async (req, res) => {
   rstream.pipe(res);
 })
 
+app.get('/playNew', async (req, res) => {
+
+  res.render('safari', {
+    title: 'Song List'
+    })
+})
+
 app.get('/mymusicapp/songs/:id', (req, res) => {
 
   const path = '/mymusicapp/songs/' + req.params.id;

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/player_index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+    <!-- <ul>
+    <li><a class="active" href="">Home</a></li>
+    <li><a href="/add">Add</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul> -->
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <!--<section class="home section" id="home">
+       <div class="home__container container grid">
+        <h1>Songs</h1>
+        <p>Enjoy your favourite tracks for free...</p>
+      </div> 
+    </section> -->
+
+        <!--==================== SEARCH ====================-->
+        <section class="home section" id="search">
+            <form class="example" method="post" action="/searchSongs" style="margin:auto;max-width:300px;">
+                <input type="text" placeholder="Search.." name="search2">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </section>
+
+        <!--==================== SONGS ====================-->
+        <section class="songs section" id="songs">
+
+        </section>
+
+        <!--==================== FOOTER ====================-->
+        <!-- <section class="section"  id="footer"> -->
+        <!-- <h1>All rights reserved</h1> -->
+        <div class="player">
+            <audio id="myAudio" src="/playNew/QzKIMMq2inI" controls>
+                <source type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
+        </div>
+        <!-- </section> -->
+
+
+    </main>
+
+    <div class="container">
+
+
+        <div class="center">
+            <!-- <h1>Music</h1> -->
+        </div>
+
+
+
+    </div>
+
+
+</body>
+
+</html>
